@@ -237,7 +237,7 @@ if (OB_USE_CLANG)
     message(STATUS "Using OB_CC compiler: ${OB_CC}")
   else()
     find_program(OB_CC clang
-    "${DEVTOOLS_DIR}/bin"
+      PATHS "${DEVTOOLS_DIR}/bin" "/usr/bin"
       NO_DEFAULT_PATH)
   endif()
 
@@ -253,7 +253,7 @@ if (OB_USE_CLANG)
     message(STATUS "Using OB_CXX compiler: ${OB_CXX}")
   else()
     find_program(OB_CXX clang++
-    "${DEVTOOLS_DIR}/bin"
+      PATHS "${DEVTOOLS_DIR}/bin" "/usr/bin"
       NO_DEFAULT_PATH)
   endif()
 
@@ -271,7 +271,7 @@ if (OB_USE_CLANG)
     set(LD_OPT "-fuse-ld=${DEVTOOLS_DIR}/bin/ld.lld -Wno-unused-command-line-argument")
     set(REORDER_COMP_OPT "-ffunction-sections -fdebug-info-for-profiling")
     set(REORDER_LINK_OPT "-Wl,--no-rosegment,--build-id=sha1 ${HOTFUNC_OPT}")
-    set(OB_LD_BIN "${DEVTOOLS_DIR}/bin/ld.lld")
+    set(OB_LD_BIN "${DEVTOOLS_DIR}/bin/ld.lld" "/usr/bin")
   endif()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --gcc-toolchain=${GCC9} ${DEBUG_PREFIX} ${FILE_PREFIX} ${AUTO_FDO_OPT} ${THIN_LTO_OPT} -fcolor-diagnostics ${REORDER_COMP_OPT} -fmax-type-align=8 ${CMAKE_ASAN_FLAG}")
   set(CMAKE_C_FLAGS "--gcc-toolchain=${GCC9} ${DEBUG_PREFIX} ${FILE_PREFIX} ${AUTO_FDO_OPT} ${THIN_LTO_OPT} -fcolor-diagnostics ${REORDER_COMP_OPT} -fmax-type-align=8 ${CMAKE_ASAN_FLAG}")
