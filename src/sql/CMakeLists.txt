@@ -1537,8 +1537,9 @@ target_link_libraries(ob_sql_static
   ${DEP_DIR}/lib64/libodps_sdk_core_static.a)
 endif()
 
+SET(GEN_PARSER_SCRIPT ${CMAKE_SOURCE_DIR}/src/sql/parser/gen_parser.sh)
 execute_process(
-  COMMAND env NEED_PARSER_CACHE=${NEED_PARSER_CACHE} bash gen_parser.sh
+  COMMAND env NEED_PARSER_CACHE=${NEED_PARSER_CACHE} bash ${GEN_PARSER_SCRIPT}
   RESULT_VARIABLE RET
   WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/src/sql/parser
   OUTPUT_FILE _gen_parser.output
