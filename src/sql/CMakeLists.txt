@@ -1200,8 +1200,9 @@ add_library(ob_sql_static
 target_link_libraries(ob_sql_static
   PUBLIC ob_sql ob_sql_server_parser_static)
 
+SET(GEN_PARSER_SCRIPT ${CMAKE_SOURCE_DIR}/src/sql/parser/gen_parser.sh)
 execute_process(
-  COMMAND bash gen_parser.sh
+  COMMAND bash ${GEN_PARSER_SCRIPT}
   RESULT_VARIABLE RET
   WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/src/sql/parser
   OUTPUT_FILE _gen_parser.output

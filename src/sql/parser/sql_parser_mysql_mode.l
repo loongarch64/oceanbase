@@ -21,6 +21,9 @@
 #include "sql_parser_base.h"
 #include "sql_parser_mysql_mode_tab.h"
 
+#define YYLTYPE         OBSQL_MYSQL_YYLTYPE
+#define YYSTYPE         OBSQL_MYSQL_YYSTYPE
+#define YYEMPTY         OBSQL_MYSQL_YYEMPTY
 extern void obsql_mysql_yyerror(YYLTYPE *yylloc, ParseResult *p, char *s,...);
 extern void obsql_mysql_parser_fatal_error(int32_t errcoyyde, yyscan_t yyscanner, yyconst char *msg, ...);
 #define yyerror obsql_mysql_yyerror
