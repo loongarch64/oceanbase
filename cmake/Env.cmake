@@ -16,8 +16,8 @@ ob_define(OB_USE_ASAN OFF)
 
 ob_define(OB_RELEASEID 1)
 
-set(OBJCOPY_BIN "${DEVTOOLS_DIR}/bin/objcopy")
-set(LD_BIN "${DEVTOOLS_DIR}/bin/ld")
+find_program(OBJCOPY_BIN objcopy PATHS "${DEVTOOLS_DIR}/bin" "/usr/bin")
+find_program(LD_BIN ld PATHS "${DEVTOOLS_DIR}/bin" "/usr/bin")
 
 # share compile cache between different directories
 set(DEBUG_PREFIX "-fdebug-prefix-map=${CMAKE_SOURCE_DIR}=.")
@@ -29,13 +29,13 @@ if (OB_USE_LLVM_LIBTOOLS)
   # use llvm-ar llvm-ranlib llvm-objcopy ld.lld...
   set(_CMAKE_TOOLCHAIN_PREFIX llvm-)
   set(_CMAKE_TOOLCHAIN_LOCATION "${DEVTOOLS_DIR}/bin")
-  set(LD_BIN "${DEVTOOLS_DIR}/bin/ld.lld")
-  set(OBJCOPY_BIN "${DEVTOOLS_DIR}/bin/llvm-objcopy")
+  find_program(LD_BIN ld.lld PATHS "${DEVTOOLS_DIR}/bin" "/usr/bin")
+  find_program(OBJCOPY_BIN llvm-objcopy PATHS "${DEVTOOLS_DIR}/bin" "/usr/bin")
 endif()
 
 if (OB_USE_CCACHE)
   find_program(OB_CCACHE ccache
-    PATHS "${DEVTOOLS_DIR}/bin"
+    PATHS "${DEVTOOLS_DIR}/bin" "/usr/bin"
     NO_DEFAULT_PATH)
   if (NOT OB_CCACHE)
     message(WARNING "CCACHE NOT FOUND, COMPILE CACHE MAY NOT WORK.")
@@ -51,14 +51,13 @@ endif()
 
 if (OB_USE_CLANG)
   find_program(OB_CC clang
-    PATHS "${DEVTOOLS_DIR}/bin"
+    PATHS "${DEVTOOLS_DIR}/bin" "/usr/bin"
     NO_DEFAULT_PATH)
   find_program(OB_CXX clang++
-    PATHS "${DEVTOOLS_DIR}/bin"
+    PATHS "${DEVTOOLS_DIR}/bin" "/usr/bin"
     NO_DEFAULT_PATH)
-  set(BUILD_OPT "${BUILD_OPT} --gcc-toolchain=${DEVTOOLS_DIR} -fcolor-diagnostics")
+  set(BUILD_OPT "${BUILD_OPT} -fcolor-diagnostics")
   # just make embedded clang and ccache happy...
-  set(BUILD_OPT "${BUILD_OPT} -I${DEVTOOLS_DIR}/lib/clang/11.0.1/include")
   set(LD_OPT "${LD_OPT} -Wl,-z,noexecstack")
 
   if (OB_USE_ASAN)
@@ -81,10 +80,10 @@ if (OB_USE_CLANG)
 
 else() # not clang, use gcc52
   find_program(OB_CC gcc
-    PATHS "${DEVTOOLS_DIR}/bin"
+    PATHS "${DEVTOOLS_DIR}/bin" "/usr/bin"
     NO_DEFAULT_PATH)
   find_program(OB_CXX g++
-    PATHS "${DEVTOOLS_DIR}/bin"
+    PATHS "${DEVTOOLS_DIR}/bin" "/usr/bin"
     NO_DEFAULT_PATH)
 
   set(BUILD_OPT "${BUILD_OPT} -fdiagnostics-color")
