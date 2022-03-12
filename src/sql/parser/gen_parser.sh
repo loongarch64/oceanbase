@@ -15,9 +15,13 @@ TEMP_FILE=$(mktemp)
 BISON_VERSION=`bison -V| grep 'bison (GNU Bison)'|awk '{ print  $4;}'`
 NEED_VERSION='2.4.1'
 
-if [ "$BISON_VERSION" != "$NEED_VERSION" ]; then
-  echo "bison version not match, please use bison-$NEED_VERSION"
-  exit 1
+# generate sql_parser
+bison -v -d ../../../src/sql/parser/sql_parser_mysql_mode.y -o ../../../src/sql/parser/sql_parser_mysql_mode_tab.c
+BISON_RETURN="$?"
+if [ $BISON_RETURN -ne 0 ]
+then
+    echo Compile error[$BISON_RETURN], abort.
+    exit 1
 fi
 
 cat ../../../src/sql/parser/sql_parser_mysql_mode.y >> $TEMP_FILE
