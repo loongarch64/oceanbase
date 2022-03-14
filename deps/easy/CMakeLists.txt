@@ -20,6 +20,19 @@ set_property(GLOBAL PROPERTY EASY_INCLUDE_DIRS
   ${INNER_INCLUDE_DIRS}
 )
 
+#target_include_directories(
+#  easy_base INTERFACE
+#  ${INNER_INCLUDE_DIRS}
+#  ${DEP_DIR}/include
+#)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(OPENSSL REQUIRED IMPORTED_TARGET openssl)
+if(${OPENSSL_FOUND})
+  include_directories(${OPENSSL_INCLUDE_DIRS})
+else()
+  message("oceanbase need openssl")
+endif()
+
 target_include_directories(
   easy_base INTERFACE
   ${INNER_INCLUDE_DIRS}
@@ -47,6 +60,8 @@ target_link_libraries(easy_base
   INTERFACE
   -L${DEP_DIR}/lib
   -L${DEP_3RD_DIR}/usr/local/babassl-ob/lib/
+  -L${OPENSSL_LIBDIR}
+  ${OPENSSL_LIBRARIES}
   -lpthread -lm -l:libssl.a -l:libcrypto.a
   ${ARCH_LDFLAGS}
 )
