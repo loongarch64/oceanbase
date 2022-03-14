@@ -20,6 +20,15 @@ set_property(GLOBAL PROPERTY EASY_INCLUDE_DIRS
   ${INNER_INCLUDE_DIRS}
 )
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(OPENSSL REQUIRED IMPORTED_TARGET openssl)
+if(${OPENSSL_FOUND})
+    if(NOT ${OPENSSL_VERSION} MATCHES "^1.0.*")
+        message(FATAL_ERROR "oceanbase need openssl-1.0, but current is openssl-${OPENSSL_VERSION}.")
+    endif()
+    include_directories(${OPENSSL_INCLUDE_DIRS})
+endif()
+
 target_include_directories(
   easy_base INTERFACE
   ${INNER_INCLUDE_DIRS}
@@ -49,6 +58,8 @@ target_compile_options(easy_base
 target_link_libraries(easy_base
   INTERFACE
   -L${DEP_DIR}/lib
+  -L${OPENSSL_LIBDIR}
+  ${OPENSSL_LIBRARIES}
   -lpthread -lm -l:libssl.a -l:libcrypto.a
   ${ARCH_LDFLAGS}
 )
