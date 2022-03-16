@@ -677,3 +677,11 @@ add_library(ob_share_static
 
 target_link_libraries(ob_share_static
   PUBLIC ob_share)
+
+#SET(GEN_ERRNO_SCRIPT ${CMAKE_SOURCE_DIR}/src/share/gen_errno.pl)
+#execute_process(
+#  COMMAND perl ${GEN_ERRNO_SCRIPT}
+#  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/src/share
+#  )
+#
+#ob_server_add_target(ob_share)
