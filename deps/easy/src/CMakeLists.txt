@@ -19,7 +19,7 @@ add_subdirectory(thread)
 add_subdirectory(util)
 
 add_library(
-  easy STATIC
+  easy SHARED
   ${easy_objects}
 )
 

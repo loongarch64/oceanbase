@@ -281,7 +281,7 @@ ${CMAKE_CURRENT_BINARY_DIR}/ob_version.cpp
 )
 
 add_library(oceanbase_static
-  STATIC
+  SHARED
   EXCLUDE_FROM_ALL)
 
 target_link_libraries(oceanbase_static
@@ -314,8 +314,8 @@ else()
     PRIVATE
     -Wl,-z,notext
     "${ob_objects}" "${oblib_object_libraries}"
-    -static-libgcc
-    -static-libstdc++
+    -lgcc
+    -lstdc++
     ob_version
     ob_sql_server_parser_objects
     oblib easy)
@@ -326,7 +326,7 @@ target_link_libraries(ob_main PUBLIC ob_base)
 enable_server_pch(ob_main)
 
 if (OB_STATIC_LINK_LGPL_DEPS)
-  set(LGPL_DEPS "-L${DEP_DIR}/lib/mariadb -l:libmariadbclient.a -l:libaio.a")
+  set(LGPL_DEPS "-L${DEP_DIR}/lib/mariadb -lmariadbclient -laio")
 endif()
 
 add_executable(observer)
@@ -339,8 +339,8 @@ target_link_libraries(observer
   PRIVATE
   ob_main
   oceanbase_static
-  -static-libgcc
-  -static-libstdc++
+  -lgcc
+  -lstdc++
   ${link_malloc_hook}
   ${LGPL_DEPS}
   )
