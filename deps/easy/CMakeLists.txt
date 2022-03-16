@@ -60,7 +60,7 @@ target_link_libraries(easy_base
   -L${DEP_3RD_DIR}/usr/local/babassl-ob/lib/
   -L${OPENSSL_LIBDIR}
   ${OPENSSL_LIBRARIES}
-  -lpthread -lm -l:libssl.a -l:libcrypto.a
+  -lpthread -lm
   ${ARCH_LDFLAGS}
 )
 

@@ -302,6 +302,9 @@ target_link_libraries(oblib_base_base_base
  )
 endif()
 target_link_libraries(oblib_base_base INTERFACE oblib_base_base_base)
+#target_link_libraries(oblib_base_base INTERFACE oblib_base_base_base)
+#  -L${DEP_DIR}/lib
+#  -lisal -lunwind -lpthread -ldl -lrt -lcrypto -lcurl ${ARCH_LDFLAGS})
 
 add_library(oblib_base INTERFACE)
 if(NOT CPP_STANDARD_20)

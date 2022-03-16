@@ -546,6 +546,23 @@ else()
     objit)
 endif()
 
+#    -lgcc
+#    -lstdc++
+#    ob_version
+#    ob_sql_server_parser_objects
+#    oblib easy)
+#endif()
+#
+#ob_add_target(ob_main main.cpp)
+#target_link_libraries(ob_main PUBLIC ob_base)
+#enable_server_pch(ob_main)
+#
+#if (OB_STATIC_LINK_LGPL_DEPS)
+#  set(LGPL_DEPS "-L${DEP_DIR}/lib/mariadb -lmariadbclient -laio")
+#endif()
+#
+#add_executable(observer)
+
 if (NOT OB_USE_ASAN)
   set(link_malloc_hook malloc_hook)
 endif()
@@ -564,6 +581,12 @@ target_link_libraries(observer_without_bolt
   ob_storage_static
   ob_share_static
   ${ob_close_modules_static_name}
+#  -lgcc
+#  -lstdc++
+#  ${link_malloc_hook}
+#  ${LGPL_DEPS}
+#  oblib
+#  easy
   -Wl,--end-group
   -static-libgcc
   -static-libstdc++
