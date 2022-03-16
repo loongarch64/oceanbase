@@ -137,6 +137,9 @@ target_link_libraries(oblib_base_base_base
   ${ARCH_LDFLAGS}
  )
 target_link_libraries(oblib_base_base INTERFACE oblib_base_base_base)
+#target_link_libraries(oblib_base_base INTERFACE oblib_base_base_base)
+#  -L${DEP_DIR}/lib
+#  -lisal -lunwind -lpthread -ldl -lrt -lcrypto -lcurl ${ARCH_LDFLAGS})
 
 add_library(oblib_base INTERFACE)
 target_compile_options(oblib_base INTERFACE -D_GLIBCXX_USE_CXX11_ABI=0)
