@@ -15,8 +15,8 @@
 #ifndef OCEANBASE_LIBOBCDC_OB_LOG_MYSQL_CONNECTOR_H_
 #define OCEANBASE_LIBOBCDC_OB_LOG_MYSQL_CONNECTOR_H_
 
-#include <mysql.h>
-#include <errmsg.h>
+#include <mysql/mysql.h>
+#include <mysql/errmsg.h>
 
 #include "share/ob_define.h"                // OB_MAX_*
 #include "lib/utility/ob_print_utils.h"     // TO_STRING_KV

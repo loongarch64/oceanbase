@@ -12,7 +12,7 @@
 
 #define USING_LOG_PREFIX LIB_MYSQLC
 #include "lib/mysqlclient/ob_isql_connection_pool.h"
-#include <mysql.h>
+#include <mysql/mysql.h>
 #include "lib/ob_define.h"
 #include "lib/allocator/ob_malloc.h"
 #include "lib/mysqlclient/ob_mysql_prepared_statement.h"

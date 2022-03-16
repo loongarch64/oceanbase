@@ -13,7 +13,7 @@
 #ifndef __COMMON_OB_MYSQL_CONNECTION_POOL__
 #define __COMMON_OB_MYSQL_CONNECTION_POOL__
 
-#include <mysql.h>
+#include <mysql/mysql.h>
 #include "lib/container/ob_se_array.h"
 #include "lib/hash/ob_link_hashmap.h"                   // ObLinkHashMap
 #include "lib/task/ob_timer.h"
