@@ -451,6 +451,7 @@ static int easy_ssl_handshake(easy_connection_t *c)
 
         return EASY_OK;
     }
+#endif
 
     sslerr = SSL_get_error(c->sc->connection, n);
     easy_debug_log("SSL_get_error: %d %s errno=%d", sslerr, easy_connection_str(c), errno);
@@ -1844,6 +1845,10 @@ static int easy_ssl_dhparam(easy_ssl_ctx_t *ssl, char *file)
         BIO_free(bio);
         return EASY_ERROR;
     }
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+    dh->p = p;
+    dh->g = g;
+#endif /* OPENSSL_VERSION_NUMBER < 0x10100000L */
 
     SSL_CTX_set_tmp_dh(ssl->ctx, dh);
 
