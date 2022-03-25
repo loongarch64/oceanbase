@@ -429,9 +429,11 @@ static int easy_ssl_handshake(easy_connection_t* c)
     c->read = easy_ssl_read;
     c->write = easy_ssl_write;
 
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
     if (c->sc->connection->s3) {
       c->sc->connection->s3->flags |= SSL3_FLAGS_NO_RENEGOTIATE_CIPHERS;
     }
+#endif
 
     return EASY_OK;
   }
@@ -1765,14 +1767,22 @@ static int easy_ssl_dhparam(easy_ssl_ctx_t* ssl, char* file)
       return EASY_ERROR;
     }
 
-    dh->p = BN_bin2bn(dh1024_p, sizeof(dh1024_p), NULL);
-    dh->g = BN_bin2bn(dh1024_g, sizeof(dh1024_g), NULL);
+    BIGNUM* p = BN_bin2bn(dh1024_p, sizeof(dh1024_p), NULL);
+    BIGNUM* g = BN_bin2bn(dh1024_g, sizeof(dh1024_g), NULL);
 
-    if (dh->p == NULL || dh->g == NULL) {
+    if (p == NULL || g == NULL
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+            || !DH_set0_pqg(dh, p, NULL, g)
+#endif /* OPENSSL_VERSION_NUMBER >= 0x10100000L */
+    ) {
       easy_ssl_error(EASY_LOG_ERROR, "BN_bin2bn() failed");
       DH_free(dh);
       return EASY_ERROR;
     }
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+    dh->p = p;
+    dh->g = g;
+#endif /* OPENSSL_VERSION_NUMBER < 0x10100000L */
 
     SSL_CTX_set_tmp_dh(ssl->ctx, dh);
 

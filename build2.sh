@@ -5,7 +5,7 @@ case "$ID" in
     arch)
         # Archlinux:
         # yay -S rapidjson openssl-1.0 mariadb isa-l
-        export PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig:$PKG_CONFIG_PATH
+        #export PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig:$PKG_CONFIG_PATH
         ;;
 esac
 

@@ -23,10 +23,9 @@ set_property(GLOBAL PROPERTY EASY_INCLUDE_DIRS
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(OPENSSL REQUIRED IMPORTED_TARGET openssl)
 if(${OPENSSL_FOUND})
-    if(NOT ${OPENSSL_VERSION} MATCHES "^1.0.*")
-        message(FATAL_ERROR "oceanbase need openssl-1.0, but current is openssl-${OPENSSL_VERSION}.")
-    endif()
-    include_directories(${OPENSSL_INCLUDE_DIRS})
+  include_directories(${OPENSSL_INCLUDE_DIRS})
+else()
+  message("oceanbase need openssl")
 endif()
 
 target_include_directories(
