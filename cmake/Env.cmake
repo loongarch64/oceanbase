@@ -50,6 +50,19 @@ if(ENABLE_AUTO_FDO)
   set(AUTO_FDO_OPT "-fprofile-sample-use=${CMAKE_SOURCE_DIR}/observer.prof")
 endif()
 
+# create ld symlink to ld.lld for gcc
+if(EXISTS "${DEVTOOLS_DIR}/bin/ld.lld")
+    execute_process(COMMAND cmake -E create_symlink
+        "${DEVTOOLS_DIR}/bin/ld.lld" # Old name
+        "${CMAKE_SOURCE_DIR}/deps/3rd/compile/ld" # New name
+        )
+elseif(EXISTS "/usr/bin/ld.lld")
+    execute_process(COMMAND cmake -E create_symlink
+        "/usr/bin/ld.lld" # Old name
+        "${CMAKE_SOURCE_DIR}/deps/3rd/compile/ld" # New name
+        )
+endif()
+
 ob_define(THIN_LTO_OPT "")
 ob_define(THIN_LTO_CONCURRENCY_LINK "")
 
