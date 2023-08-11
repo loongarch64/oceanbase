@@ -51,15 +51,19 @@ if(ENABLE_AUTO_FDO)
 endif()
 
 # create ld symlink to ld.lld for gcc
+if(NOT IS_DIRECTORY "${DEP_3RD_DIR}/compile")
+    execute_process(COMMAND cmake -E make_directory "${DEP_3RD_DIR}/compile")
+endif()
+
 if(EXISTS "${DEVTOOLS_DIR}/bin/ld.lld")
     execute_process(COMMAND cmake -E create_symlink
         "${DEVTOOLS_DIR}/bin/ld.lld" # Old name
-        "${CMAKE_SOURCE_DIR}/deps/3rd/compile/ld" # New name
+        "${DEP_3RD_DIR}/deps/3rd/compile/ld" # New name
         )
 elseif(EXISTS "/usr/bin/ld.lld")
     execute_process(COMMAND cmake -E create_symlink
         "/usr/bin/ld.lld" # Old name
-        "${CMAKE_SOURCE_DIR}/deps/3rd/compile/ld" # New name
+        "${DEP_3RD_DIR}/deps/3rd/compile/ld" # New name
         )
 endif()
 

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 #clear env
 unalias -a
@@ -106,6 +107,12 @@ function get_os_release() {
       UOS)
 	version_ge "20" && OS_RELEASE=20 && return
       ;;
+    esac
+  elif [[ "${OS_ARCH}x" == "loongarch64x" ]]; then
+    case "$ID" in
+      arch)
+        compat_centos8 && return
+        ;;
     esac
   fi
   not_supported && return 1 
