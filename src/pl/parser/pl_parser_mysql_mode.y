@@ -13,11 +13,11 @@
 //first: declare
 %define api.pure
 %parse-param {ObParseCtx *parse_ctx}
-%name-prefix "obpl_mysql_yy"
+%define api.prefix {obpl_mysql_yy}
 %locations
 //%no-lines
 %verbose
-%error-verbose
+%define parse.error verbose
 
 %{
 #include <stdint.h>

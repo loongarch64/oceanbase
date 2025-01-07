@@ -30,6 +30,9 @@ namespace common
 #elif defined(__aarch64__)
 #define WEAK_BARRIER() __sync_synchronize()
 #define PAUSE() ({OB_ATOMIC_EVENT(atomic_pause); asm("yield\n");})  // for ARM
+#elif defined(__loongarch_lp64)
+#define WEAK_BARRIER() __sync_synchronize()
+#define PAUSE() ({OB_ATOMIC_EVENT(atomic_pause); asm("dbar 0\n");})  // for ARM
 #else
 #error arch unsupported
 #endif

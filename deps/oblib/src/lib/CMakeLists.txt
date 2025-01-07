@@ -483,6 +483,19 @@ elseif(CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64")
     libgomp_static.a
     libroaring.a
   )
+elseif(CMAKE_SYSTEM_PROCESSOR STREQUAL "loongarch64")
+  target_link_libraries(oblib_lib
+    PUBLIC
+    libob_vsag_static.a
+    libcpuinfo.a
+    libsimd.a
+    libvsag_static.a
+    libdiskann.a
+    libopenblas.a
+    libgfortran_static.a
+    libgomp_static.a
+    libroaring.a
+  )
 else()
     message(FATAL_ERROR "Unsupported architecture: ${CMAKE_SYSTEM_PROCESSOR}")
 endif()

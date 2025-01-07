@@ -6,9 +6,9 @@
 #
 set +x
 CURDIR="$(dirname $(readlink -f "$0"))"
-#export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/bin:$PATH
 export PATH=$CURDIR/../../../deps/3rd/usr/local/oceanbase/devtools/bin/:$PATH
-export BISON_PKGDATADIR=$CURDIR/../../../deps/3rd/usr/local/oceanbase/devtools/share/bison
+#export BISON_PKGDATADIR=$CURDIR/../../../deps/3rd/usr/local/oceanbase/devtools/share/bison
 CACHE_MD5_FILE=$CURDIR/_MD5
 TEMP_FILE=$(mktemp)
 
@@ -16,13 +16,14 @@ BISON_VERSION=`bison -V| grep 'bison (GNU Bison)'|awk '{ print  $4;}'`
 NEED_VERSION='2.4.1'
 
 # generate sql_parser
-bison -v -d ../../../src/sql/parser/sql_parser_mysql_mode.y -o ../../../src/sql/parser/sql_parser_mysql_mode_tab.c
-BISON_RETURN="$?"
-if [ $BISON_RETURN -ne 0 ]
-then
-    echo Compile error[$BISON_RETURN], abort.
-    exit 1
-fi
+#mkdir -p ../../../src/sql/parser
+#bison -v -d ../../../src/sql/parser/sql_parser_mysql_mode.y -o ../../../src/sql/parser/sql_parser_mysql_mode_tab.c
+#BISON_RETURN="$?"
+#if [ $BISON_RETURN -ne 0 ]
+#then
+#    echo Compile error[$BISON_RETURN], abort.
+#    exit 1
+#fi
 
 cat ../../../src/sql/parser/sql_parser_mysql_mode.y >> $TEMP_FILE
 cat ../../../src/sql/parser/sql_parser_mysql_mode.l >> $TEMP_FILE
