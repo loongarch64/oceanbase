@@ -1,5 +1,6 @@
+SET(GEN_PARSER_SCRIPT ${CMAKE_SOURCE_DIR}/src/pl/parser/gen_parser.sh)
 execute_process(
-  COMMAND bash gen_parser.sh
+  COMMAND bash ${GEN_PARSER_SCRIPT}
   RESULT_VARIABLE RET
   WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/src/pl/parser
   OUTPUT_FILE _gen_pl_parser.output
