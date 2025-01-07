@@ -81,7 +81,11 @@ if(NOT OB_BUILD_CDC)
   add_definitions(-DENABLE_INITIAL_EXEC_TLS_MODEL)
 endif()
 
-set(OB_OBJCOPY_BIN "${DEVTOOLS_DIR}/bin/objcopy")
+if(EXISTS "${DEVTOOLS_DIR}/bin/objcopy")
+  set(OB_OBJCOPY_BIN "${DEVTOOLS_DIR}/bin/objcopy")
+elseif(EXISTS "/usr/bin/objcopy")
+  set(OB_OBJCOPY_BIN "/usr/bin/objcopy")
+endif()
 
 # NO RELERO: -Wl,-znorelro
 # Partial RELRO: -Wl,-z,relro
@@ -146,6 +150,10 @@ if( ${ARCHITECTURE} STREQUAL "x86_64" )
     set(OCI_DEVEL_INC "${DEP_3RD_DIR}/usr/include/oracle/11.2/client64")
     add_compile_options(-DRDMA_ENABLED)
     set(rdma_lib_deps "reasy" )
+elseif( ${ARCHITECTURE} STREQUAL "loongarch64" )
+    set(MTUNE_CFLAGS "")
+    set(ARCH_LDFLAGS "")
+    set(OCI_DEVEL_INC "${DEP_3RD_DIR}/usr/include/oracle/11.2/client64")
 else()
     set(MARCH_CFLAGS "-march=armv8-a+crc" )
     set(MTUNE_CFLAGS "-mtune=generic" )
