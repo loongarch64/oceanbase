@@ -18,6 +18,9 @@
 #define SPIN_PAUSE() asm("pause\n")
 #elif defined(__aarch64__)
 #define SPIN_PAUSE() asm("yield\n")
+#elif defined(__loongarch_lp64)
+#define SPIN_PAUSE() asm ("dbar 0");
+//#define SPIN_PAUSE() do {__asm__ __volatile__ ("dbar 0" ::: "memory");} while (1);
 #endif
 
 #define LOAD(x) __atomic_load_n((x), __ATOMIC_ACQUIRE)

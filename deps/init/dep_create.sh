@@ -40,6 +40,11 @@ function compat_alinux3() {
   OS_RELEASE=8
 }
 
+function compat_loongnix8() {
+  echo_log "[NOTICE] '$PNAME' is compatible with LoongnixServer 8, use lns8 dependencies list"
+  OS_RELEASE=8
+}
+
 function not_supported() {
   echo_log "[ERROR] '$PNAME' is not supported yet."
 }
@@ -158,9 +163,21 @@ function get_os_release() {
     esac
   elif [[ "${OS_ARCH}x" == "loongarch64x" ]]; then
     case "$ID" in
-      arch)
-        compat_centos8 && return
-        ;;
+      loongnix-server)
+        version_ge "23" && compat_loongnix8 && return
+      ;;
+      loongnix-server)
+        version_ge "8.0" && compat_loongnix8 && return
+      ;;
+      anolis)
+        version_ge "8.0" && compat_loongnix8 && return
+      ;;
+      kylin)
+        version_ge "V10" && compat_loongnix8 && return
+      ;;
+      uos)
+        version_ge "20" && compat_loongnix8 && return
+      ;;
     esac
   fi
   not_supported && return 1
@@ -174,6 +191,11 @@ else
     OS_TAG="el$OS_RELEASE.$OS_ARCH"
 fi
 
+if [[ "${OS_ARCH}x" == "loongarch64x" ]]; then
+	OS_TAG="lns$OS_RELEASE.$OS_ARCH"
+else
+	OS_TAG="el$OS_RELEASE.$OS_ARCH"
+fi
 DEP_FILE="oceanbase.${OS_TAG}.deps"
 
 MD5=`md5sum ${DEP_FILE} | cut -d" " -f1`
@@ -235,7 +257,7 @@ if [ $NEED_SHARE_CACHE == "OFF" ]; then
 fi
 
 # 删除本地依赖文件
-rm -rf ${WORKSPACE_DEPS_3RD}
+#rm -rf ${WORKSPACE_DEPS_3RD}
 
 if [ ${NEED_SHARE_CACHE} == "ON" ]; then
     # 判断共享目录是否存在

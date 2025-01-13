@@ -121,11 +121,13 @@ if (OB_USE_CLANG)
     -DOCI_LINK_RUNTIME
     -Wall -Wextra -Wformat -Werror
     -Wno-deprecated -Wno-address-of-packed-member -Wno-sign-compare -Wno-tautological-compare
-    -Wno-psabi -Wno-c99-designator -Wno-int-in-bool-context -Wno-sizeof-array-div
-    -Wno-implicit-const-int-float-conversion -Wno-fortify-source -Wno-non-c-typedef-for-linkage
-    -Wno-uninitialized-const-reference -Wno-unused-function -Wno-atomic-alignment
+	#    -Wno-psabi -Wno-c99-designator -Wno-int-in-bool-context -Wno-sizeof-array-div
+	#    -Wno-implicit-const-int-float-conversion -Wno-fortify-source -Wno-non-c-typedef-for-linkage
+	#    -Wno-uninitialized-const-reference -Wno-unused-function -Wno-atomic-alignment
+    -Wno-unused-function -Wno-atomic-alignment #loongarch?
     -Wno-tautological-constant-out-of-range-compare -Wno-unused-parameter
-    -Wno-string-plus-int -Wno-misleading-indentation -Wno-unused-private-field
+	#    -Wno-string-plus-int -Wno-misleading-indentation -Wno-unused-private-field
+    -Wno-string-plus-int  -Wno-unused-private-field #loongarch?
     $<$<COMPILE_LANGUAGE:CXX>:-Wno-overloaded-virtual -Wno-reserved-user-defined-literal
     -Wno-self-assign -Wno-inconsistent-missing-override -Wno-mismatched-tags -Wno-unused-variable
     -Wno-invalid-offsetof -Wno-unevaluated-expression -Wno-constant-logical-operand>
@@ -171,7 +173,7 @@ else()
     -fno-strict-aliasing -fno-omit-frame-pointer ${MARCH_CFLAGS} ${MTUNE_CFLAGS}
     -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS -D_NO_EXCEPTION
     -DOCI_LINK_RUNTIME
-    -Wall -Wextra -Wformat -Werror
+    -Wall -Wextra -Wformat -Werror #loongarch?
     -Wno-deprecated
     -Wno-sign-compare
     -Wno-psabi
