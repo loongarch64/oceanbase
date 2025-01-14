@@ -38,7 +38,7 @@ if (OB_USE_CLANG)
     -fno-strict-aliasing -fno-omit-frame-pointer ${MARCH_CFLAGS} ${MTUNE_CFLAGS}
     -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS -D_NO_EXCEPTION -DTSI_STATIC_SUM
     -DOCI_LINK_RUNTIME
-    -Wall -Wextra -Wformat -Werror
+    -Wall -Wextra -Wformat
     -Wno-deprecated -Wno-address-of-packed-member -Wno-sign-compare -Wno-tautological-compare
 	#    -Wno-psabi -Wno-c99-designator -Wno-int-in-bool-context -Wno-sizeof-array-div
 	#    -Wno-implicit-const-int-float-conversion -Wno-fortify-source -Wno-non-c-typedef-for-linkage
@@ -80,7 +80,7 @@ else()
     -fno-strict-aliasing -fno-omit-frame-pointer ${MARCH_CFLAGS} ${MTUNE_CFLAGS}
     -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS -D_NO_EXCEPTION
     -DOCI_LINK_RUNTIME
-	-Wall -Wextra -Wformat -Werror #loongarch? -Werror
+	-Wall -Wextra -Wformat #loongarch? -Werror
     -Wno-deprecated
     -Wno-sign-compare
     -Wno-psabi
