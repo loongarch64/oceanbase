@@ -20,6 +20,11 @@
 #if defined(__GNUC__) && (defined(__x86_64__) || defined(__i386__))
 /* GCC-compatible compiler, targeting x86/x86-64 */
 #include <x86intrin.h>
+#elif defined(__GNUC__) && defined(__loongarch_lp64)
+#include <lsxintrin.h>
+//TODO:
+#define _mm_sub_epi32(a, b)                  __lsx_vsub_w((a), (b))
+
 #elif defined(__GNUC__) && defined(__ARM_NEON)
 /* GCC-compatible compiler, targeting ARM with NEON */
 
