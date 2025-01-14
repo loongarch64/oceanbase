@@ -451,7 +451,6 @@ static int easy_ssl_handshake(easy_connection_t *c)
 
         return EASY_OK;
     }
-#endif
 
     sslerr = SSL_get_error(c->sc->connection, n);
     easy_debug_log("SSL_get_error: %d %s errno=%d", sslerr, easy_connection_str(c), errno);
