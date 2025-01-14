@@ -407,6 +407,7 @@ else()
     ob_share_static
     -Wl,--no-whole-archive
     -static-libgcc -static-libstdc++
+	#    -lgcc -lstdc++ loongarch?
     objit)
 endif()
 

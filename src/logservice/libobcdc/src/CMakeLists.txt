@@ -137,6 +137,7 @@ if (OB_STRICT_COMPILE_FLAGS)
   target_compile_options(obcdc_objects PRIVATE)
 else()
   target_compile_options(obcdc_objects PRIVATE -Werror)
+  #target_compile_options(obcdc_objects PRIVATE ) loongarch?
 endif()
 if (OB_SO_CACHE)
   add_library(obcdc SHARED IMPORTED GLOBAL)

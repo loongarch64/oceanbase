@@ -15,6 +15,7 @@
 
 #include "ob_pl_stmt.h"
 
++// loongarch?
 #include "lib/clang/11.0.1/include/unwind.h"
 
 namespace oceanbase

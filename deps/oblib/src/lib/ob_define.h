@@ -1720,6 +1720,8 @@ const int32_t OB_MAX_SYS_BKGD_THREAD_NUM = 64;
 const int64_t OB_MAX_CPU_NUM = 64;
 #elif __aarch64__
 const int64_t OB_MAX_CPU_NUM = 128;
+#elif __loongarch_lp64
+const int64_t OB_MAX_CPU_NUM = 128;
 #endif
 const int64_t OB_MAX_STATICS_PER_TABLE = 128;
 

@@ -88,7 +88,7 @@ static __inline__ void easy_spin_lock(easy_atomic_t *lock)
 #elif defined(__aarch64__)
                 __asm__ ("yield");  // for ARM
 #elif defined(__loongarch_lp64)
-                __asm__ ("ibar 0");  // for ARM
+                __asm__ ("ibar 0");  // for LOONGARCH
 #else
     #error arch unsupported
 #endif
@@ -148,6 +148,8 @@ static __inline__ int easy_spinrwlock_rdlock(easy_spinrwlock_t *lock)
                 asm("pause");
 #elif defined(__aarch64__)
                 asm("yield");  // for ARM
+#elif defined(__loongarch_lp64)
+                __asm__ ("ibar 0");  // for LOONGARCH
 #else
     #error arch unsupported
 #endif
@@ -189,6 +191,8 @@ static __inline__ int easy_spinrwlock_wrlock(easy_spinrwlock_t *lock)
                 asm("pause");
 #elif defined(__aarch64__)
                 asm("yield");  // for ARM
+#elif defined(__loongarch_lp64)
+                __asm__ ("ibar 0");  // for LOONGARCH
 #else
     #error arch unsupported
 #endif
