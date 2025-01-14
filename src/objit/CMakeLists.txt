@@ -9,7 +9,7 @@ project(objit
     message(FATAL_ERROR "DEP_3RD_DIR not set")
   endif()
 
-set(LLVM_DIR "${DEP_3RD_DIR}/usr/local/oceanbase/devtools/lib/cmake/llvm")
+set(LLVM_DIR "/usr/lib/llvm-18/lib/cmake/llvm")
 find_package(LLVM REQUIRED CONFIG)
 
 include(cmake/libutils.cmake)

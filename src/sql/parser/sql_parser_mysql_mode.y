@@ -56,7 +56,7 @@ extern int easy_vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
 %}
 
 %destructor {destroy_tree($$);}<node>
-%destructor {oceanbase::common::ob_free($$);}<str_value_>
+//%destructor {oceanbase::common::ob_free($$);}<str_value_>
 
 %token <node> NAME_OB
 %token <node> STRING_VALUE
@@ -124,7 +124,7 @@ extern int easy_vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
 %left	AND AND_OP
 %left BETWEEN CASE WHEN THEN ELSE
 %nonassoc LOWER_THAN_COMP
-%left COMP_EQ COM P_NSEQ COMP_GE COMP_GT COMP_LE COMP_LT COMP_NE IS LIKE IN REGEXP SOUNDS
+%left COMP_EQ COMP_NSEQ COMP_GE COMP_GT COMP_LE COMP_LT COMP_NE IS LIKE IN REGEXP SOUNDS
 %nonassoc STRING_VALUE
 %right ESCAPE /*for conflict for escape*/
 %left '|'
@@ -11271,11 +11271,11 @@ NAME_OB
 {
   $$ = $1;
 }
-| name_list NAME_OB %prec COMMA
+| name_list NAME_OB %prec LOWER_COMMA
 {
   malloc_non_terminal_node($$, result->malloc_pool_, T_LINK_NODE, 2, $1, $2);
 }
-| name_list ',' NAME_OB %prec COMMA
+| name_list ',' NAME_OB %prec LOWER_COMMA
 {
   malloc_non_terminal_node($$, result->malloc_pool_, T_LINK_NODE, 2, $1, $3);
 }
