@@ -17,7 +17,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <openssl/md5.h>
-#include <oss_c_sdk/aos_log.h>
+#include "aos_log.h"
 #include "aos_util.h"
 #include "aos_string.h"
 #include "aos_status.h"
