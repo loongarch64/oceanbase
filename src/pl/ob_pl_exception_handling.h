@@ -15,8 +15,12 @@
 
 #include "ob_pl_stmt.h"
 
-+// loongarch?
+// FIXME: loongarch?
+#ifdef __loongarch_lp64
+#include "lib/clang/17/include/unwind.h"
+#else
 #include "lib/clang/11.0.1/include/unwind.h"
+#endif
 
 namespace oceanbase
 {
