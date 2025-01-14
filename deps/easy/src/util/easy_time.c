@@ -135,6 +135,7 @@ static __inline__ uint64_t rdtscp()
     __asm__ __volatile__("rdtscp" : "=a"(rax), "=d"(rdx) :: "%rcx");
     return (rdx << 32) + rax;
 }
+#endif
 
 #if defined(__loongarch_lp64)
 static __inline__ uint64_t rdtsc()
