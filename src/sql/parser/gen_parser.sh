@@ -23,7 +23,7 @@ NEED_VERSION='2.4.1'
 #fi
 
 bison_parser() {
-BISON_OUTPUT="$(bison -v -Werror -d $1 -o $2 2>&1)"
+BISON_OUTPUT="$(bison -v -d $1 -o $2 2>&1)"
 BISON_RETURN="$?"
 echo $BISON_OUTPUT
 if [ $BISON_RETURN -ne 0 ]

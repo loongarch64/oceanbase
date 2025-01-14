@@ -23,6 +23,9 @@ ob_define(OB_CMAKE_RULES_CHECK ON)
 ob_define(OB_STATIC_LINK_LGPL_DEPS ON)
 ob_define(HOTFUNC_PATH "${CMAKE_SOURCE_DIR}/hotfuncs.txt")
 ob_define(OB_BUILD_CCLS OFF)
+# get compiler from build.sh
+ob_define(OB_CC "")
+ob_define(OB_CXX "")
 
 # 'ENABLE_PERF_MODE' use for offline system insight performance test
 # PERF_MODE macro controls many special code path in system
@@ -93,12 +96,22 @@ endif()
 ob_define(OB_RELRO_FLAG "-Wl,-z,relro,-z,now")
 
 if (OB_USE_CLANG)
-  find_program(OB_CC clang
-    PATHS "${DEVTOOLS_DIR}/bin" "/usr/bin"
-    NO_DEFAULT_PATH)
-  find_program(OB_CXX clang++
-    PATHS "${DEVTOOLS_DIR}/bin" "/usr/bin"
-    NO_DEFAULT_PATH)
+
+  if (OB_CC)
+    message(STATUS "Using OB_CC compiler: ${OB_CC}")
+  else()
+    find_program(OB_CC clang
+      PATHS "${DEVTOOLS_DIR}/bin" "/usr/bin"
+      NO_DEFAULT_PATH)
+  endif()
+  if (OB_CXX)
+    message(STATUS "Using OB_CXX compiler: ${OB_CXX}")
+  else()
+    find_program(OB_CXX clang++
+      PATHS "${DEVTOOLS_DIR}/bin" "/usr/bin"
+      NO_DEFAULT_PATH)
+  endif()
+
   find_file(GCC9 devtools
     PATHS ${CMAKE_SOURCE_DIR}/deps/3rd/usr/local/oceanbase
     NO_DEFAULT_PATH)
@@ -115,8 +128,8 @@ if (OB_USE_CLANG)
     set(REORDER_LINK_OPT "-Wl,--no-rosegment,--build-id=sha1,--no-warn-symbol-ordering,--symbol-ordering-file,${HOTFUNC_PATH}")
     set(OB_LD_BIN "${DEVTOOLS_DIR}/bin/ld.lld" "/usr/bin")
   endif()
-  set(CMAKE_CXX_FLAGS "--gcc-toolchain=${GCC9} ${DEBUG_PREFIX} ${AUTO_FDO_OPT} ${THIN_LTO_OPT} -fcolor-diagnostics ${REORDER_COMP_OPT} -fmax-type-align=8 ${CMAKE_ASAN_FLAG} -std=gnu++11")
-  set(CMAKE_C_FLAGS "--gcc-toolchain=${GCC9} ${DEBUG_PREFIX} ${AUTO_FDO_OPT} ${THIN_LTO_OPT} -fcolor-diagnostics ${REORDER_COMP_OPT} -fmax-type-align=8 ${CMAKE_ASAN_FLAG}")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${DEBUG_PREFIX} ${AUTO_FDO_OPT} ${THIN_LTO_OPT} -fcolor-diagnostics ${REORDER_COMP_OPT} -fmax-type-align=8 ${CMAKE_ASAN_FLAG} -std=gnu++11")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${DEBUG_PREFIX} ${AUTO_FDO_OPT} ${THIN_LTO_OPT} -fcolor-diagnostics ${REORDER_COMP_OPT} -fmax-type-align=8 ${CMAKE_ASAN_FLAG}")
   set(CMAKE_CXX_LINK_FLAGS "${LD_OPT} ${THIN_LTO_CONCURRENCY_LINK} --gcc-toolchain=${GCC9} ${DEBUG_PREFIX} ${AUTO_FDO_OPT}")
   set(CMAKE_SHARED_LINKER_FLAGS "${LD_OPT} -Wl,-z,noexecstack ${THIN_LTO_CONCURRENCY_LINK} ${REORDER_LINK_OPT}")
   set(CMAKE_EXE_LINKER_FLAGS "${LD_OPT} -Wl,-z,noexecstack -pie ${THIN_LTO_CONCURRENCY_LINK} ${REORDER_LINK_OPT} ${CMAKE_COVERAGE_EXE_LINKER_OPTIONS}")

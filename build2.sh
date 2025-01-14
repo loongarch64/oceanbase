@@ -62,6 +62,7 @@ elif [ $CMAKE_BUILD_TYPE == "Debug" ];then
 fi
 eval "unset `echo "${cmake_flags[@]}" | sed 's/\-D//g' | sed 's/=[0-9a-zA-Z]*/ /g'`"
 
+mkdir -p deps/3rd/deps/3rd/compile/
 [ -d $BUILD_DIR ] || mkdir -p $BUILD_DIR
 cd $BUILD_DIR
 
