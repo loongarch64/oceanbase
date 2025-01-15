@@ -9,6 +9,7 @@ target_include_directories(cos_wrapper
   ${DEP_DIR}/include
   ${DEP_DIR}/include/cos_c_sdk
   ${DEP_DIR}/include/mxml
+  /usr/include/oss_c_sdk
 )
 target_link_libraries(cos_wrapper PUBLIC oblib_base_base)
 

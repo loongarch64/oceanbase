@@ -22,8 +22,20 @@
 #include <x86intrin.h>
 #elif defined(__GNUC__) && defined(__loongarch_lp64)
 #include <lsxintrin.h>
-//TODO:
+// arithmetic
 #define _mm_sub_epi32(a, b)                  __lsx_vsub_w((a), (b))
+#define _mm_add_epi32(a, b)                  __lsx_vadd_w(a, b)
+// store
+#define _mm_storeu_si128(p, a)               __lsx_vsat_w(p, a)
+#define _mm_store_si128(p, a)                __lsx_vsat_wu(p, a)
+// load
+#define _mm_loadu_si128(p)                   __lsx_vli((const uint32_t *)(p))
+#define _mm_load_si128(p)                    __lsx_vli((const uint32_t *)(p))
+#define _mm_lddqu_si128(p)                   __lsx_vli((const uint32_t *)(p))
+//// others
+//#define _mm_alignr_epi8(a, b, ralign)        __lsx_vextrins_b(a, b, ralign)
+//#define _mm_set1_epi32(u)                    vdupq_n_u32(u)
+//#define _mm_set1_epi16(w)                    (__m128i)vdupq_n_u16(w)
 
 #elif defined(__GNUC__) && defined(__ARM_NEON)
 /* GCC-compatible compiler, targeting ARM with NEON */
