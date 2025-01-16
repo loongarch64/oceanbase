@@ -18,8 +18,8 @@
 %option prefix="obsql_mysql_yy"
 %option header-file="../../../src/sql/parser/sql_parser_mysql_mode_lex.h"
 %{
-#include "sql_parser_base.h"
-#include "sql_parser_mysql_mode_tab.h"
+#include "../../../src/sql/parser/sql_parser_base.h"
+#include "../../../src/sql/parser/sql_parser_mysql_mode_tab.h"
 
 #define YYLTYPE         OBSQL_MYSQL_YYLTYPE
 #define YYSTYPE         OBSQL_MYSQL_YYSTYPE

@@ -12,7 +12,12 @@
 
 //first: declare
 %define api.pure
-%parse-param {ObParseCtx *parse_ctx}
+%code requires {
+#include "../../../src/pl/parser/parse_stmt_node.h"
+#include "../../../src/sql/parser/parse_node.h"
+#define YYEMPTY         OBSQL_MYSQL_YYEMPTY
+}
+%param {ObParseCtx *parse_ctx}
 %define api.prefix {obpl_mysql_yy}
 %locations
 //%no-lines
@@ -1718,7 +1723,7 @@ label_ident:
 ;
 
 opt_sp_label:
-    /* Empty */ { $$ = NULL }
+    /* Empty */ { $$ = NULL; }
   | label_ident
     {
       $$ = $1;

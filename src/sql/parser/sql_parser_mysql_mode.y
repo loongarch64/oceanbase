@@ -8894,7 +8894,7 @@ TYPE COMP_EQ STRING_VALUE
 }
 | COLUMN_BLOOM_FILTER COMP_EQ '(' intnum_list ')'
 {
-  malloc_non_terminal_node($$, result->malloc_pool_, T_COLUMN_BLOOM_FILTER, 1, $4)
+  malloc_non_terminal_node($$, result->malloc_pool_, T_COLUMN_BLOOM_FILTER, 1, $4);
 }
 | FILE_EXTENSION COMP_EQ STRING_VALUE
 {
@@ -15442,7 +15442,7 @@ calibration_info_list:
 }
 | STRING_VALUE
 {
-  $$ = $1
+  $$ = $1;
 }
 | calibration_info_list ',' STRING_VALUE
 {
@@ -22795,7 +22795,7 @@ alter_with_opt_hint SYSTEM transfer_partition_clause opt_tenant_name
 | alter_with_opt_hint SYSTEM CANCEL BALANCE JOB opt_tenant_name
 {
   (void)($1);
-  malloc_non_terminal_node($$, result->malloc_pool_, T_CANCEL_BALANCE_JOB, 1, $6)
+  malloc_non_terminal_node($$, result->malloc_pool_, T_CANCEL_BALANCE_JOB, 1, $6);
 }
 ;
 transfer_partition_clause:
@@ -23991,7 +23991,7 @@ MIN_MAX
 }
 | SUM
 {
-  malloc_terminal_node($$, result->malloc_pool_, T_COL_SKIP_INDEX_SUM)
+  malloc_terminal_node($$, result->malloc_pool_, T_COL_SKIP_INDEX_SUM);
 }
 ;
 

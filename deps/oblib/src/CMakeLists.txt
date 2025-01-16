@@ -136,7 +136,7 @@ if (OB_USE_CLANG)
 	#    -Wno-psabi -Wno-c99-designator -Wno-int-in-bool-context -Wno-sizeof-array-div
 	#    -Wno-implicit-const-int-float-conversion -Wno-fortify-source -Wno-non-c-typedef-for-linkage
 	#    -Wno-uninitialized-const-reference -Wno-unused-function -Wno-atomic-alignment
-    -Wno-unused-function -Wno-atomic-alignment -Wno-vla-cxx-extension -Wno-format -Wno-unused-but-set-variable #loongarch?
+    -Wno-unused-function -Wno-atomic-alignment -Wno-vla-cxx-extension -Wno-format -Wno-unused-but-set-variable -Wno-non-c-typedef-for-linkage #loongarch?
     -Wno-tautological-constant-out-of-range-compare -Wno-unused-parameter
 	#    -Wno-string-plus-int -Wno-misleading-indentation -Wno-unused-private-field
     -Wno-string-plus-int  -Wno-unused-private-field #loongarch?

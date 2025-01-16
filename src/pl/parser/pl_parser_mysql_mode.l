@@ -17,8 +17,8 @@
 %option prefix="obpl_mysql_yy"
 %option header-file="../../../src/pl/parser/pl_parser_mysql_mode_lex.h"
 %{
-#include "pl/parser/pl_parser_base.h"
-#include "pl_parser_mysql_mode_tab.h"
+#include "../../../src/pl/parser/pl_parser_base.h"
+#include "../../../src/pl/parser/pl_parser_mysql_mode_tab.h"
 
 extern void obpl_mysql_yyerror(YYLTYPE *yylloc, ObParseCtx *parse_ctx, char *s);
 extern void obpl_mysql_parse_fatal_error(int32_t errcode, yyscan_t yyscanner, yyconst char *msg, ...);
