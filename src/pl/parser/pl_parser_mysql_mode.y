@@ -15,7 +15,9 @@
 %code requires {
 #include "../../../src/pl/parser/parse_stmt_node.h"
 #include "../../../src/sql/parser/parse_node.h"
-#define YYEMPTY         OBSQL_MYSQL_YYEMPTY
+#define OBPL_MYSQL_YYLTYPE  YYLTYPE
+#define YYSTYPE         OBPL_MYSQL_YYSTYPE
+#define YYEMPTY         OBPL_MYSQL_YYEMPTY
 }
 %param {ObParseCtx *parse_ctx}
 %define api.prefix {obpl_mysql_yy}
