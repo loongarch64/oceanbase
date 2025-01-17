@@ -33,30 +33,30 @@ target_include_directories(oss
 
 target_link_libraries(oss
   INTERFACE
-  ${DEP_DIR}/lib/liboss_c_sdk_static.a
-  ${DEP_DIR}/lib/libaprutil-1.a
-  ${DEP_DIR}/lib/libapr-1.a
-  ${DEP_DIR}/lib/libmxml.a)
+  /usr/lib/liboss_c_sdk.so
+  /usr/lib/libaprutil-1.so
+  /usr/lib/libapr-1.so
+  /usr/lib/libmxml.so)
 
 oblib_add_library(s3 ob_storage_s3_base.cpp)
-target_link_directories(s3 PUBLIC ${DEP_3RD_DIR}/usr/local/oceanbase/deps/devel/lib64)
+target_link_directories(s3 PUBLIC /usr/lib/)
 target_link_libraries(s3
   PUBLIC
-  libaws-cpp-sdk-s3.a
-  libaws-cpp-sdk-core.a
-  libaws-crt-cpp.a
-  libaws-c-mqtt.a
-  libaws-c-event-stream.a
-  libaws-c-s3.a
-  libaws-c-auth.a
-  libaws-c-http.a
-  libaws-c-io.a
-  libs2n.a
-  libaws-c-compression.a
-  libaws-c-cal.a
-  libaws-c-sdkutils.a
-  libaws-checksums.a
-  libaws-c-common.a
+  libaws-cpp-sdk-s3.so
+  libaws-cpp-sdk-core.so
+  libaws-crt-cpp.so
+  libaws-c-mqtt.so
+  libaws-c-event-stream.so
+  libaws-c-s3.so
+  libaws-c-auth.so
+  libaws-c-http.so
+  libaws-c-io.so
+  libs2n.so
+  libaws-c-compression.so
+  libaws-c-cal.so
+  libaws-c-sdkutils.so
+  libaws-checksums.so
+  libaws-c-common.so
 )
 target_link_libraries(s3 PUBLIC oblib_base_base_base)
 

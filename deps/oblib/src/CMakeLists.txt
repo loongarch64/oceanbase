@@ -254,9 +254,9 @@ target_link_libraries(oblib_base_base_base
   INTERFACE
   oss
   easy
-  ${DEP_DIR}/lib/libcurl.a
-  ${DEP_DIR}/lib/libssl.a
-  ${DEP_DIR}/lib/libcrypto.a
+  /usr/lib/libcurl.so
+  /usr/lib/libssl.so
+  /usr/lib/libcrypto.so
   ${DEP_DIR}/lib64/libs2.a
   ${OBLIB_ABSEIL_LIST}
   ${DEP_DIR}/lib/libroaring.a

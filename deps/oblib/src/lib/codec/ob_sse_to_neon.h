@@ -65,7 +65,7 @@ static __attribute__((always_inline)) __m128i case_alignr_vectors(v16u8 a, v16u8
 #define _mm_slli_epi16(a, count)             (__m128i)__lsx_vsll_h((v8u16)(a), __lsx_vreplgr2vr_h((count)))
 #define _mm_srli_epi16(a, count)             (__m128i)__lsx_vsrl_h((v8u16)(a), __lsx_vreplgr2vr_h((count)))
 #define _mm_slli_epi32(a, count)             (__m128i)__lsx_vsll_w((v4u32)(a), __lsx_vreplgr2vr_w((count)))
-#define _mm_srli_epi32(a, count)             (__m128i)__lsx_vsrl_w((v4u32)(a), __lsx_vreplgr2vr_b((count)))
+#define _mm_srli_epi32(a, count)             (__m128i)__lsx_vsrl_w((v4u32)(a), __lsx_vreplgr2vr_w((count)))
 
   // logical
   #define _mm_or_si128(a, b)                   (__m128i)__lsx_vor_v((a), (b))

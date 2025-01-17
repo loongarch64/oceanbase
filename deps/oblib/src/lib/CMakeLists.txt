@@ -445,8 +445,8 @@ if(CPP_STANDARD_20)
 endif()
 target_link_libraries(oblib_lib
   PUBLIC ob_malloc compress restore
-  ${DEP_DIR}/lib/libxml2.a
-  ${DEP_DIR}/lib/liblzma.a
+  /usr/lib/libxml2.so
+  /usr/lib/liblzma.so
 )
 
 if (NOT BUILD_CDC_ONLY)
