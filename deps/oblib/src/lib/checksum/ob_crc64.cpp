@@ -421,8 +421,9 @@ for RHEL4 support (GCC 3 doesn't support this instruction) */
 #define crc32_sse42_quadword crc = __crc32cd(crc, *(int64_t*)buf); len -= 8, buf += 8
 #define crc32_sse42_byte crc = __crc32cb(crc, (uint8_t)*buf); len--, buf++
 #elif defined(__loongarch_lp64) //loongarch?
-#define crc32_sse42_byte    nullptr
-#define crc32_sse42_quadword  nullptr
+#include <larchintrin.h>
+#define crc32_sse42_byte crc = __crcc_w_b_w((uint8_t)*buf, crc); len--, buf++
+#define crc32_sse42_quadword crc = __crcc_w_d_w(*(int64_t)buf, crc); len -= 8, buf += 8
 #endif /* defined(__GNUC__) && defined(__x86_64__) */
 
 uint64_t crc64_sse42(uint64_t uCRC64, const char* buf, int64_t len)
