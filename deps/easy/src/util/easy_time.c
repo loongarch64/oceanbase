@@ -135,6 +135,25 @@ static __inline__ uint64_t rdtscp()
     __asm__ __volatile__("rdtscp" : "=a"(rax), "=d"(rdx) :: "%rcx");
     return (rdx << 32) + rax;
 }
+#endif
+
+#if defined(__loongarch_lp64)
+static __inline__ uint64_t rdtsc()
+{
+	int rID;
+	uint64_t val;
+	__asm__ __volatile__(
+			"rdtime.d %0, %1 \n\t"
+			: "=r"(val), "=r"(rID)
+			:
+			);
+	return val;
+}
+static __inline__ uint64_t rdtscp()
+{
+    return rdtscp();
+}
+
 #else
 static __inline__ uint64_t rdtscp()
 {
@@ -149,7 +168,7 @@ static __inline__ uint64_t rdtsc()
 
 #endif
 
-#if defined(__x86_64__)
+#if defined(__x86_64__) || defined(__loongarch_lp64)
 // 读取cpu频率
 uint64_t get_cpufreq_khz()
 {

@@ -6,6 +6,7 @@ get_property(EASY_INCLUDE_DIRS GLOBAL PROPERTY "EASY_INCLUDE_DIRS" )
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(RAPIDJSON REQUIRED IMPORTED_TARGET RapidJSON)
 pkg_check_modules(ISAL REQUIRED IMPORTED_TARGET libisal)
+pkg_check_modules(APR REQUIRED IMPORTED_TARGET apr-1)
 
 target_include_directories(
   oblib_base_base_base INTERFACE
@@ -30,6 +31,16 @@ target_include_directories(
   ${DEP_DIR}/include/apache-orc
   ${DEP_DIR}/include/fast_float
   ${USSL_INCLUDE_DIRS}
+  /usr/include/oss_c_sdk
+  /usr/include/apr-1/
+  /usr/include/icu
+  /usr/include/icu/common
+  /usr/include/apache-arrow
+  /usr/include/apache-orc
+  /usr/include/fast_float
+    ${RAPIDJSON_INCLUDE_DIRS}
+    ${ISAL_INCLUDE_DIRS}
+    ${APR_INCLUDE_DIRS}
 )
 
 if(OB_BUILD_OPENSOURCE)
@@ -49,8 +60,9 @@ if(OB_BUILD_SPM)
   target_include_directories(
     oblib_base_base_base INTERFACE
     ${CMAKE_SOURCE_DIR}/close_modules/spm
-#  ${RAPIDJSON_INCLUDE_DIRS}
-#  ${ISAL_INCLUDE_DIRS}
+    ${RAPIDJSON_INCLUDE_DIRS}
+   #    ${ISAL_INCLUDE_DIRS}
+   #    ${APR_INCLUDE_DIRS}
   )
 endif()
 
@@ -119,13 +131,15 @@ if (OB_USE_CLANG)
   set(OBLIB_COMPILE_DEFINITIONS -fno-strict-aliasing -fno-omit-frame-pointer ${MARCH_CFLAGS} ${MTUNE_CFLAGS}
     -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS -D_NO_EXCEPTION -DTSI_STATIC_SUM
     -DOCI_LINK_RUNTIME
-    -Wall -Wextra -Wformat -Werror
+    -Wall -Wextra -Wformat
     -Wno-deprecated -Wno-address-of-packed-member -Wno-sign-compare -Wno-tautological-compare
-    -Wno-psabi -Wno-c99-designator -Wno-int-in-bool-context -Wno-sizeof-array-div
-    -Wno-implicit-const-int-float-conversion -Wno-fortify-source -Wno-non-c-typedef-for-linkage
-    -Wno-uninitialized-const-reference -Wno-unused-function -Wno-atomic-alignment
+	#    -Wno-psabi -Wno-c99-designator -Wno-int-in-bool-context -Wno-sizeof-array-div
+	#    -Wno-implicit-const-int-float-conversion -Wno-fortify-source -Wno-non-c-typedef-for-linkage
+	#    -Wno-uninitialized-const-reference -Wno-unused-function -Wno-atomic-alignment
+    -Wno-unused-function -Wno-atomic-alignment -Wno-vla-cxx-extension -Wno-format -Wno-unused-but-set-variable -Wno-non-c-typedef-for-linkage -Wno-implicit-function-declaration #loongarch?
     -Wno-tautological-constant-out-of-range-compare -Wno-unused-parameter
-    -Wno-string-plus-int -Wno-misleading-indentation -Wno-unused-private-field
+	#    -Wno-string-plus-int -Wno-misleading-indentation -Wno-unused-private-field
+    -Wno-string-plus-int  -Wno-unused-private-field #loongarch?
     $<$<COMPILE_LANGUAGE:CXX>:-Wno-overloaded-virtual -Wno-reserved-user-defined-literal
     -Wno-self-assign -Wno-inconsistent-missing-override -Wno-mismatched-tags -Wno-unused-variable
     -Wno-invalid-offsetof -Wno-unevaluated-expression -Wno-constant-logical-operand>
@@ -171,7 +185,7 @@ else()
     -fno-strict-aliasing -fno-omit-frame-pointer ${MARCH_CFLAGS} ${MTUNE_CFLAGS}
     -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS -D_NO_EXCEPTION
     -DOCI_LINK_RUNTIME
-    -Wall -Wextra -Wformat -Werror
+    -Wall -Wextra -Wformat -Wno-unused-but-set-variable #loongarch?
     -Wno-deprecated
     -Wno-sign-compare
     -Wno-psabi
@@ -240,9 +254,9 @@ target_link_libraries(oblib_base_base_base
   INTERFACE
   oss
   easy
-  ${DEP_DIR}/lib/libcurl.a
-  ${DEP_DIR}/lib/libssl.a
-  ${DEP_DIR}/lib/libcrypto.a
+  /usr/lib/libcurl.so
+  /usr/lib/libssl.so
+  /usr/lib/libcrypto.so
   ${DEP_DIR}/lib64/libs2.a
   ${OBLIB_ABSEIL_LIST}
   ${DEP_DIR}/lib/libroaring.a

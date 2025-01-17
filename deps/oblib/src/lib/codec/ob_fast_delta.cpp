@@ -5,7 +5,6 @@
 
 #include "ob_fast_delta.h"
 #include "ob_sse_to_neon.h"
-
 namespace oceanbase
 {
 namespace common

@@ -19,8 +19,20 @@ static inline cycles_t easy_get_cycles()
     return val;
 }
 
-#else
+#elif defined(__loongarch_lp64)
+static inline cycles_t easy_get_cycles()
+{
+	int rID;
+	unsigned long long val;
+	__asm__ __volatile__(
+			"rdtime.d %0, %1 \n\t"
+			: "=r"(val), "=r"(rID)
+			:
+			);
+	return val;
+}
 
+#else
 static inline uint64_t easy_rdtscp()
 {
     int64_t virtual_timer_value;

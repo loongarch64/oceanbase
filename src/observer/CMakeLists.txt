@@ -543,6 +543,7 @@ else()
     ${ob_close_modules_static_name}
     -Wl,--no-whole-archive
     -static-libgcc -static-libstdc++
+	#    -lgcc -lstdc++ loongarch?
     objit)
 endif()
 
@@ -581,7 +582,7 @@ target_link_libraries(observer_without_bolt
   ob_storage_static
   ob_share_static
   ${ob_close_modules_static_name}
-#  -lgcc
+#  -lgcc loongarch?
 #  -lstdc++
 #  ${link_malloc_hook}
 #  ${LGPL_DEPS}

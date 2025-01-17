@@ -350,7 +350,7 @@ int ObOrcJit::set_optimize_level(ObPLOptLevel level)
       LOG_WARN("unexpected NULL JITTargetMachineBuilder", K(ret), K(lbt()));
     } else {
       auto &builder = *tm_builder;
-      builder.setCodeGenOptLevel(CodeGenOpt::Level::None);
+      builder.setCodeGenOptLevel(CodeGenOptLevel::None);
       builder.getOptions().EnableFastISel = true;
     }
   }

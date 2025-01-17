@@ -31,6 +31,7 @@ ob_define(NEED_PARSER_CACHE ON)
 # get compiler from build.sh
 ob_define(OB_CC "")
 ob_define(OB_CXX "")
+#ob_define(OB_USE_LLD ON)
 
 # 'ENABLE_PERF_MODE' use for offline system insight performance test
 # PERF_MODE macro controls many special code path in system
@@ -114,7 +115,7 @@ if((ENABLE_BOLT OR (NOT DEFINED ENABLE_BOLT AND ENABLE_BOLT_AUTO)) AND NOT OB_BU
   endif()
 endif()
 
-ob_define(CPP_STANDARD_20 OFF)
+ob_define(CPP_STANDARD_20 ON)
 if(CPP_STANDARD_20)
   message(STATUS "Using C++20 standard")
   set(CMAKE_CXX_FLAGS "-std=gnu++20")
@@ -367,9 +368,12 @@ if( ${ARCHITECTURE} STREQUAL "x86_64" )
     set(ARCH_LDFLAGS "")
     set(OCI_DEVEL_INC "${DEP_3RD_DIR}/usr/include/oracle/12.2/client64")
 elseif( ${ARCHITECTURE} STREQUAL "loongarch64" )
-    set(MTUNE_CFLAGS "")
-    set(ARCH_LDFLAGS "")
-    set(OCI_DEVEL_INC "${DEP_3RD_DIR}/usr/include/oracle/12.2/client64")
+    set(MARCHE_CFLAGS "-march=loongarch64")
+    set(MTUNE_CFLAGS "-mabi=lp64d" -mlsx)
+    set(ARCH_LDFLAGS "-latomic")
+	set(ARCH_C_FLAGS "-mlsx")
+	set(ARCH_CXX_FLAGS "-mlsx")
+	set(CMAKE_REQUIRED_FLAGS "${ARCH_C_FLAGS}")
 else()
     if (${OB_DISABLE_LSE})
       message(STATUS "build with no-lse")

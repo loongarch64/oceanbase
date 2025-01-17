@@ -9,7 +9,7 @@ project(objit
     message(FATAL_ERROR "DEP_3RD_DIR not set")
   endif()
 
-set(LLVM_DIR "${DEP_3RD_DIR}/usr/local/oceanbase/devtools/lib/cmake/llvm")
+set(LLVM_DIR "/usr/lib/llvm-18/lib/cmake/llvm")
 find_package(LLVM REQUIRED CONFIG)
 
 include(cmake/libutils.cmake)
@@ -29,6 +29,8 @@ add_definitions(-g -O2 -frtti)
 # that we wish to use
 if( ${ARCHITECTURE} STREQUAL "x86_64" )
   LLVM_MAP_COMPONENTS_TO_LIBNAMES(llvm_libs Support Core IRReader ExecutionEngine OrcJit McJit X86CodeGen X86AsmParser runtimedyld bitreader bitwriter object objectyaml target DebugInfoDWARF Symbolize)
+elseif( ${ARCHITECTURE} STREQUAL "loongarch64" )
+	LLVM_MAP_COMPONENTS_TO_LIBNAMES(llvm_libs Support Core IRReader ExecutionEngine OrcJit McJit LoongArchCodeGen LoongArchAsmParser runtimedyld bitreader bitwriter object objectyaml target DebugInfoDWARF Symbolize)
 else()
   LLVM_MAP_COMPONENTS_TO_LIBNAMES(llvm_libs Support Core IRReader ExecutionEngine OrcJit McJit AArch64CodeGen AArch64AsmParser runtimedyld bitreader bitwriter object objectyaml target DebugInfoDWARF Symbolize)
 endif()

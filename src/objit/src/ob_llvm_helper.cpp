@@ -87,16 +87,16 @@ static ObGetIRType OB_IR_TYPE[common::ObMaxType + 1] =
   reinterpret_cast<ObGetIRType>(ObIRType::getDoubleTy),   //12.ObDoubleType
   reinterpret_cast<ObGetIRType>(ObIRType::getFloatTy),    //13.ObUFloatType
   reinterpret_cast<ObGetIRType>(ObIRType::getDoubleTy),   //14.ObUDoubleType
-  reinterpret_cast<ObGetIRType>(ObIRType::getInt32PtrTy), //15.ObNumberType
-  reinterpret_cast<ObGetIRType>(ObIRType::getInt32PtrTy), //16.ObUNumberType
+  reinterpret_cast<ObGetIRType>(ObIRType::getInt32Ty), //15.ObNumberType
+  reinterpret_cast<ObGetIRType>(ObIRType::getInt32Ty), //16.ObUNumberType
   reinterpret_cast<ObGetIRType>(ObIRType::getInt64Ty),    //17.ObDateTimeType
   reinterpret_cast<ObGetIRType>(ObIRType::getInt64Ty),    //18.ObTimestampType
   reinterpret_cast<ObGetIRType>(ObIRType::getInt64Ty),    //19.ObDateType
   reinterpret_cast<ObGetIRType>(ObIRType::getInt64Ty),    //20.ObTimeType
   reinterpret_cast<ObGetIRType>(ObIRType::getInt64Ty),    //21.ObYearType
-  reinterpret_cast<ObGetIRType>(ObIRType::getInt8PtrTy),  //22.ObVarcharType
-  reinterpret_cast<ObGetIRType>(ObIRType::getInt8PtrTy),  //23.ObCharType
-  reinterpret_cast<ObGetIRType>(ObIRType::getInt8PtrTy),  //24.ObHexStringType
+  reinterpret_cast<ObGetIRType>(ObIRType::getInt8Ty),  //22.ObVarcharType
+  reinterpret_cast<ObGetIRType>(ObIRType::getInt8Ty),  //23.ObCharType
+  reinterpret_cast<ObGetIRType>(ObIRType::getInt8Ty),  //24.ObHexStringType
   reinterpret_cast<ObGetIRType>(ObIRType::getInt64Ty),    //25.ObExtendType
   reinterpret_cast<ObGetIRType>(ObIRType::getInt64Ty),    //26.ObUnknownType
   NULL,                                                   //27.ObTinyTextType
@@ -106,18 +106,18 @@ static ObGetIRType OB_IR_TYPE[common::ObMaxType + 1] =
   reinterpret_cast<ObGetIRType>(ObIRType::getInt64Ty),    //31.ObBitType
   reinterpret_cast<ObGetIRType>(ObIRType::getInt64Ty),    //32.ObEnumType
   reinterpret_cast<ObGetIRType>(ObIRType::getInt64Ty),    //33.ObSetType
-  reinterpret_cast<ObGetIRType>(ObIRType::getInt8PtrTy),  //34.ObEnumInnerType
-  reinterpret_cast<ObGetIRType>(ObIRType::getInt8PtrTy),  //35.ObSetInnerType
+  reinterpret_cast<ObGetIRType>(ObIRType::getInt8Ty),  //34.ObEnumInnerType
+  reinterpret_cast<ObGetIRType>(ObIRType::getInt8Ty),  //35.ObSetInnerType
   NULL,   //36.ObTimestampTZType
   NULL,  //37.ObTimestampLTZType
   NULL,  //38.ObTimestampNanoType
   NULL,  //39.ObRawType
   NULL,  //40.ObIntervalYMType
   NULL,  //41.ObIntervalDSType
-  reinterpret_cast<ObGetIRType>(ObIRType::getInt32PtrTy),  //42.ObNumberFloatType
-  reinterpret_cast<ObGetIRType>(ObIRType::getInt8PtrTy),  //43.ObNVarchar2Type
-  reinterpret_cast<ObGetIRType>(ObIRType::getInt8PtrTy),  //44.ObNVarchar2Type
-  reinterpret_cast<ObGetIRType>(ObIRType::getInt8PtrTy),  // 45. ObURowIDType
+  reinterpret_cast<ObGetIRType>(ObIRType::getInt32Ty),  //42.ObNumberFloatType
+  reinterpret_cast<ObGetIRType>(ObIRType::getInt8Ty),  //43.ObNVarchar2Type
+  reinterpret_cast<ObGetIRType>(ObIRType::getInt8Ty),  //44.ObNVarchar2Type
+  reinterpret_cast<ObGetIRType>(ObIRType::getInt8Ty),  // 45. ObURowIDType
   NULL,                                                    //46.ObLobType
   NULL,                                                    //47.ObJsonType
   NULL,                                                    //48.ObGeometryType
