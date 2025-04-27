@@ -87,8 +87,10 @@ static __inline__ void easy_spin_lock(easy_atomic_t *lock)
                 __asm__ (".byte 0xf3, 0x90");
 #elif defined(__aarch64__)
                 __asm__ ("yield");  // for ARM
-#elif defined(__powerpc64__) 
-               __asm__ __volatile__("or 27,27,27\n":::"memory"); 
+#elif defined(__powerpc64__)
+               __asm__ __volatile__("or 27,27,27\n":::"memory");
+#elif defined(__loongarch_lp64)
+                __asm__ ("ibar 0");  // for LOONGARCH
 #else
     #error arch unsupported
 #endif
@@ -148,8 +150,10 @@ static __inline__ int easy_spinrwlock_rdlock(easy_spinrwlock_t *lock)
                 asm("pause");
 #elif defined(__aarch64__)
                 asm("yield");  // for ARM
-#elif defined(__powerpc64__) 
-                __asm__ __volatile__("or 27,27,27\n":::"memory"); 
+#elif defined(__powerpc64__)
+                __asm__ __volatile__("or 27,27,27\n":::"memory");
+#elif defined(__loongarch_lp64)
+                __asm__ ("ibar 0");  // for LOONGARCH
 #else
     #error arch unsupported
 #endif
@@ -191,8 +195,10 @@ static __inline__ int easy_spinrwlock_wrlock(easy_spinrwlock_t *lock)
                 asm("pause");
 #elif defined(__aarch64__)
                 asm("yield");  // for ARM
-#elif defined(__powerpc64__) 
-                __asm__ __volatile__("or 27,27,27\n":::"memory"); 
+#elif defined(__powerpc64__)
+                __asm__ __volatile__("or 27,27,27\n":::"memory");
+#elif defined(__loongarch_lp64)
+                __asm__ ("ibar 0");  // for LOONGARCH64
 #else
     #error arch unsupported
 #endif
