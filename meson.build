@@ -134,8 +134,8 @@ endif
 #endif
 
 # Paths
-rootdir = include_directories('.')
-#depdir = include_directories('deps/3rd/usr/local/oceanbase/deps/devel')
+top_srcdir = include_directories('.')
+top_src_srcdir = include_directories('./src')
 
 srcdir = meson.current_source_dir()
 builddir = meson.current_build_dir()
