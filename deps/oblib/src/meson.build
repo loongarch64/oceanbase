@@ -12,7 +12,23 @@
 #endif
 #
 ### get_property(['EASY_INCLUDE_DIRS', 'GLOBAL', 'PROPERTY', 'EASY_INCLUDE_DIRS'])
-#
+
+oblib_base_without_pass_dirs = [
+  include_directories('.'),
+  include_directories('..'),
+  include_directories('../../..'),
+  include_directories('../../../src'),
+  include_directories('../../../src/plugin/include'),
+  include_directories('../../../deps/easy/src'),
+  include_directories('../../../deps/oblib/src'),
+  include_directories('../../../deps/oblib/src/common'),
+  include_directories('../../../deps/easy/src/include'),
+  include_directories('../../../deps/ussl-hook'),
+  include_directories('../../../deps/ussl-hook/loop'),
+  include_directories('../../../src/objit/include'),
+  include_directories('../../../src/objit/src'),
+]
+
 ## target_include_directories(['oblib_base_without_pass',
 #'INTERFACE',
 #cmake_source_dir,
