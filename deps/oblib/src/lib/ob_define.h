@@ -1832,6 +1832,8 @@ const int64_t OB_MAX_CPU_NUM = 16;
 const int64_t OB_MAX_CPU_NUM = 128;
 #elif defined(__powerpc64__)
 const int64_t OB_MAX_CPU_NUM = 256; //To verify whether larger (256/512/1024/2048) is better for performance
+#elif __loongarch_lp64
+const int64_t OB_MAX_CPU_NUM = 128;
 #endif
 const int64_t OB_MAX_STATICS_PER_TABLE = 128;
 
