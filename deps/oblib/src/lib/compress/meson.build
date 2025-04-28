@@ -45,15 +45,13 @@ compress_sources = [
 'zstd_1_3_8/ob_zstd_compressor_1_3_8.cpp',
 'zstd_1_3_8/ob_zstd_compressor_1_3_8.h',
 'zstd_1_3_8/ob_zstd_stream_compressor_1_3_8.cpp',
-'zstd_1_3_8/ob_zstd_stream_compressor_1_3_8.h',
-'zlib_lite/ob_zlib_lite_compressor.cpp',
-'zlib_lite/ob_zlib_lite_compressor.h']
+'zstd_1_3_8/ob_zstd_stream_compressor_1_3_8.h']
 
 subdir('zstd')
 subdir('zstd_1_3_8')
 subdir('lz4')
 subdir('snappy')
-subdir('zlib_lite')
+#subdir('zlib_lite')
 
 ## target_link_libraries(compress
 ## PUBLIC lz4 snappy zstd zstd_1_3_8 zlib_lite)
@@ -68,7 +66,7 @@ lib_compress = static_library(
   #include_directories : easy_include_dirs,
   include_directories : oblib_base_without_pass_dirs,
   #dependencies : [ lib_zlib_lite ],
-  link_with : [ lib_lz4, lib_snappy, lib_zstd, lib_zstd_1_3_8, lib_zlib_lite ],
+  link_with : [ lib_lz4, lib_snappy, lib_zstd, lib_zstd_1_3_8 ],
   # soversion: soversion,
   # version: libversion,
   c_args : compress_cargs,
