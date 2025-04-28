@@ -135,11 +135,12 @@ endif
 
 # Paths
 rootdir = include_directories('.')
+#depdir = include_directories('deps/3rd/usr/local/oceanbase/deps/devel')
 
 srcdir = meson.current_source_dir()
 builddir = meson.current_build_dir()
 
 subdir('deps/easy')
-#subdir('deps/oblib')
+subdir('deps/oblib')
 #subdir('src/objit')
 #subdir('src')

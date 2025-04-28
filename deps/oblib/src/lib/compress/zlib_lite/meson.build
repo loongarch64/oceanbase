@@ -1,21 +1,18 @@
 zlib_lite_cargs = ['-fvisibility=hidden']
-#if get_option('CPP_STANDARD_20')
-zlib_lite_cargs += ['-Wno-deprecated-non-prototype']
-#endif
-# target_compile_options(['zlib_lite_src', 'PRIVATE', zlib_lite_compile_definitions])
+
+if get_option('cpp-standard-20')
+  zlib_lite_cargs += ['-Wno-deprecated-non-prototype']
+endif
+
 adaptor_cargs = zlib_lite_cargs
-  # target_include_directories(['zlib_lite_adaptor', 'PUBLIC', '${DEP_DIR}/include/'])
-  # target_compile_options(['zlib_lite_adaptor', 'PUBLIC', '-DENABLE_QPL_COMPRESSION'])
 qpl_cargs = zlib_lite_cargs
 
 if host_machine.cpu_family() == 'x86_64'
   adaptor_cargs += ['-DENABLE_QPL_COMPRESSION']
-  # target_include_directories(['zlib_lite_adaptor', 'PUBLIC', '${DEP_DIR}/include/'])
-  # target_compile_options(['zlib_lite_adaptor', 'PUBLIC', '-DENABLE_QPL_COMPRESSION'])
-  qpl_cargs += ['-DENABLE_QPL_COMPRESSION']
+  #adaptor_dir = [ depdir + '/include' ]
 
-  # target_include_directories(['zlib_lite_qpl', 'PUBLIC', '${DEP_DIR}/include/'])
-  # target_compile_options(['zlib_lite_qpl', 'PUBLIC', '-DENABLE_QPL_COMPRESSION'])
+  qpl_cargs += ['-DENABLE_QPL_COMPRESSION']
+  #qpl_dir = [ depdir + '/include' ]
 
   qpl_deps = []
   # target_link_libraries(['zlib_lite_qpl', 'PUBLIC', '${DEP_DIR}/lib64/libqpl.a'])
@@ -61,7 +58,6 @@ lib_zlib_lite_adaptor = static_library(
 # We can not put the file codec_deflate_qpl.cpp into zlib_lite_objs.
 # I got some link error messages like below:
 # ld.lld: error: relocation refers to a symbol in a discarded section: __clang_call_terminate
-
 #zlib_lite_qpl_lib = library('zlib_lite_qpl', 'codec_deflate_qpl.cpp')
 lib_zlib_lite_qpl = static_library(
   'zlib_lite_qpl',
