@@ -18,7 +18,6 @@ oblib_base_without_pass_dirs = [
   include_directories('..'),
   include_directories('../../..'),
   include_directories('../../../src'),
-  include_directories('../../../src/plugin/include'),
   include_directories('../../../deps/easy/src'),
   include_directories('../../../deps/oblib/src'),
   include_directories('../../../deps/oblib/src/common'),
