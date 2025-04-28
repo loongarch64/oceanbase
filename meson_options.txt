@@ -1,0 +1,79 @@
+option('compile-dll-mode',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('ob_errsim',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('ob_dis_searray',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('ob_trans_errsim',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('trans_module_test',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('latch_diagnose',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('smart_var_check',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('debug_log',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('serialization_check',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('ob_gperf_mode',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('perf_mode',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('memory_diagnosis',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('obj_leak_check',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('fatal_error_hang',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('detect_recursion',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('ob_use_asan',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('sanity',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('ob_build_package',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('ob_mcmodel',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('use-babassl',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
