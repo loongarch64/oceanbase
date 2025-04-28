@@ -1,0 +1,31 @@
+ob_base_without_pass_lib = library('ob_base_without_pass', 'INTERFACE')
+ob_base_lib = library('ob_base', 'INTERFACE')
+# target_include_directories(['ob_base', 'INTERFACE', cmake_current_source_dir, cmake_current_source_dir, '/plugin/include'])
+# target_compile_features(['ob_base_without_pass', 'INTERFACE', 'cxx_std_11'])
+# target_link_libraries(['ob_base_without_pass', 'INTERFACE', 'oblib_base_without_pass', 'objit_base', ob_relro_flag, '-Wl,-T,${CMAKE_SOURCE_DIR}/rpm/ld.lds'])
+# target_compile_definitions(['ob_base_without_pass', 'INTERFACE', 'PACKAGE_NAME=', '${PROJECT_NAME}', 'PACKAGE_VERSION=', '${PROJECT_VERSION}', 'PACKAGE_STRING=', '${PROJECT_NAME} ${PROJECT_VERSION}', 'RELEASEID=', '${BUILD_NUMBER}'])
+# target_compile_options(['ob_base_without_pass', 'INTERFACE', '$<$<COMPILE_LANGUAGE:CXX>:-Wno-invalid-offsetof>'])
+# target_link_libraries(['ob_base', 'INTERFACE', 'ob_base_without_pass', 'oblib_pass'])
+
+# function(['ob_server_add_target', 'target'])
+# message(['STATUS', 'observer_add_target ${target}'])
+# ob_add_object_target(target)
+# target_link_libraries([target, 'PUBLIC', 'ob_base'])
+# list(['APPEND', 'ob_objects', target])
+ob_objects = ['${ob_objects}', 'CACHE', 'INTERNAL', 'observer object library list']
+# endfunction()
+subdir('share')
+subdir('sql')
+subdir('pl')
+subdir('rootserver')
+subdir('logservice')
+subdir('storage')
+subdir('diagnose')
+if 'BUILD_CDC_ONLY'
+  subdir('observer')
+  subdir('libtable')
+else
+  subdir('observer')
+  subdir('libtable')
+endif
+subdir('plugin')

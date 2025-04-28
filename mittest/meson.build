@@ -1,0 +1,10 @@
+mit_srcs = 'env/ob_simple_server_helper.cpp'
+mit_env_lib = library('mit_env', mit_srcs)
+# target_include_directories(['mit_env', 'PUBLIC', cmake_source_dir, '/unittest', cmake_source_dir, '/mittest'])
+# target_link_libraries(['mit_env', 'PUBLIC', 'oceanbase', hyperscan_lib])
+subdir('logservice')
+subdir('simple_server')
+subdir('mtlenv')
+subdir('multi_replica')
+#add_subdirectory(palf_cluster)
+subdir('shared_storage')
