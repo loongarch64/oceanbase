@@ -77,3 +77,7 @@ option('ob_mcmodel',
 option('use-babassl',
   type: 'boolean', value: false,
   description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('cpp-standard-20',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
