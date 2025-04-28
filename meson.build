@@ -18,6 +18,30 @@ easy_deps = [
   openssl_dep,
 ]
 
+add_project_arguments([
+  '-D_NO_EXCEPTION',
+  ], language: ['c', 'cpp'])
+
+if cc.get_id() == 'clang'
+  message('is clang')
+  add_project_arguments([
+    '-Wno-reserved-user-defined-literal',
+    ], language: 'cpp')
+else
+  message('is not clang')
+endif
+
+#if get_option('cpp-standard-20')
+#  add_project_arguments([
+#    '-std=gnu++20',
+#    '-DCPP_STANDARD_20'
+#    ], language: 'cpp')
+#else
+#  add_project_arguments([
+#    '-std=gnu++11',
+#    ], language: 'cpp')
+#endif
+
 libm_dep = cc.find_library('m', required: false)
 if libm_dep.found()
   easy_deps += [libm_dep]
