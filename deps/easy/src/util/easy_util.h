@@ -32,6 +32,11 @@ static inline cycles_t easy_get_cycles()
 }
 
 #elif defined(__loongarch_lp64)
+static inline uint64_t easy_rdtscp()
+{
+  //FIXME
+  return 0;
+}
 static inline cycles_t easy_get_cycles()
 {
 	int rID;
@@ -42,11 +47,6 @@ static inline cycles_t easy_get_cycles()
 			:
 			);
 	return val;
-}
-
-static inline cycles_t easy_get_cycles()
-{
-    return easy_rdtscp();
 }
 
 #elif defined(__powerpc64__)
