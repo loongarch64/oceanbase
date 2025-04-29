@@ -11,7 +11,7 @@
 
 easy_include_dirs = [
   include_directories('./src/include'),
-  include_directories('./src')
+  include_directories('./src'),
   ]
 
 easy_test_dirs = include_directories('test')

@@ -89,6 +89,7 @@ cargs += [
 '-D_GLIBCXX_USE_CXX11_ABI=0',
 '-D_GNU_SOURCE',
 '-D__STDC_LIMIT_MACROS',
+'-D_NO_EXCEPTION',
 #'-g',
 #'-Wall',
 #'-Werror',

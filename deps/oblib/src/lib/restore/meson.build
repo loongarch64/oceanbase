@@ -28,10 +28,58 @@ restore_sources = [
 # target_include_directories(['oss', 'INTERFACE', dep_dir, '/include/apr-1', dep_dir, '/include', dep_dir, '/include/oss_c_sdk', dep_dir, '/include/mxml'])
 # target_link_libraries(['oss', 'INTERFACE', dep_dir, '/lib/liboss_c_sdk_static.a', dep_dir, '/lib/libaprutil-1.a', dep_dir, '/lib/libapr-1.a', dep_dir, '/lib/libmxml.a'])
 
+
 # oblib_add_library(['s3', 'ob_storage_s3_base.cpp'])
 # target_link_directories(['s3', 'PUBLIC', dep_3rd_dir, '/usr/local/oceanbase/deps/devel/lib64'])
-# target_link_libraries(['s3', 'PUBLIC', 'libaws-cpp-sdk-s3.a', 'libaws-cpp-sdk-core.a', 'libaws-crt-cpp.a', 'libaws-c-mqtt.a', 'libaws-c-event-stream.a', 'libaws-c-s3.a', 'libaws-c-auth.a', 'libaws-c-http.a', 'libaws-c-io.a', 'libs2n.a', 'libaws-c-compression.a', 'libaws-c-cal.a', 'libaws-c-sdkutils.a', 'libaws-checksums.a', 'libaws-c-common.a'])
 # target_link_libraries(['s3', 'PUBLIC', 'oblib_base_without_pass'])
+#target_link_libraries(['s3',
+#'PUBLIC',
+#'libaws-cpp-sdk-s3.a',
+#'libaws-cpp-sdk-core.a',
+#'libaws-crt-cpp.a',
+#'libaws-c-mqtt.a',
+#'libaws-c-event-stream.a',
+#'libaws-c-s3.a',
+#'libaws-c-auth.a',
+#'libaws-c-http.a',
+#'libaws-c-io.a',
+#'libs2n.a',
+#'libaws-c-compression.a',
+#'libaws-c-cal.a',
+#'libaws-c-sdkutils.a',
+#'libaws-checksums.a',
+#'libaws-c-common.a'
+#])
+#aws-c-io
+#aws-cpp-sdk-s3
+#aws_sdk_cpp_dep = dependency('aws-sdk-cpp', version: aws_sdk_cpp_req)
+#
+#cos_wrapper_cargs = []
+#cos_wrapper_cppargs = []
+
+lib_s3 = static_library(
+  's3',
+  sources: 'ob_storage_s3_base.cpp',
+  #include_directories : easy_include_dirs,
+  include_directories : [
+    oblib_base_without_pass_dirs,
+    oblib_src_dirs,
+    top_src_sdir,
+    easy_include_dirs,
+    include_directories('/usr/include/oss_c_sdk'),
+    ],
+  dependencies : [
+    apr_dep,
+    aws_sdk_cpp_dep,
+    ],
+  #link_with : [ lib_lz4, lib_snappy, lib_zstd, lib_zstd_1_3_8 ],
+  # soversion: soversion,
+  # version: libversion,
+  #c_args : cos_wrapper_cargs,
+  c_args : ['-D_GLIBCXX_USE_CXX11_ABI=0', '-DNDEBUG', '-D_NO_EXCEPTION'],
+  cpp_args : ['-D_GLIBCXX_USE_CXX11_ABI=0', '-DNDEBUG', '-D_NO_EXCEPTION'],
+  # install: true,
+  )
 
 # oblib_add_library(['obdal', 'ob_storage_obdal_base.cpp'])
 # target_link_directories(['obdal', 'PUBLIC', dep_3rd_dir, '/usr/local/oceanbase/deps/devel/lib'])

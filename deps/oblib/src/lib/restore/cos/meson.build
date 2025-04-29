@@ -52,3 +52,21 @@ lib_cos_wrapper = static_library(
 #
 #oblib_add_extra_objects(${CMAKE_CURRENT_BINARY_DIR}/cos_sdk_objs.o)
 #oblib_add_library(cos_sdk cos_sdk_objs.o)
+
+lib_cos_sdk = static_library(
+  'cos_sdk',
+  sources : cos_wrapper_sources,
+  #include_directories : easy_include_dirs,
+  include_directories : oblib_base_without_pass_dirs,
+  dependencies : [
+    apr_dep,
+    cos_c_sdk_dep,
+    #mxml_dep,
+    ],
+  #link_with : [ lib_lz4, lib_snappy, lib_zstd, lib_zstd_1_3_8 ],
+  # soversion: soversion,
+  # version: libversion,
+  c_args : cos_wrapper_cargs,
+  # install: true,
+  )
+

@@ -13,6 +13,10 @@
 #
 ### get_property(['EASY_INCLUDE_DIRS', 'GLOBAL', 'PROPERTY', 'EASY_INCLUDE_DIRS'])
 
+oblib_src_dirs = [
+  include_directories('.'),
+  ]
+
 oblib_base_without_pass_dirs = [
   include_directories('.'),
   include_directories('..'),

@@ -15,18 +15,20 @@ openssl_req = '>= 1.1.1'
 apr_req = '>= 1.6.5'
 cos_c_sdk_req = '>= 5.0.21'
 mxml_req = '>= 2.12.0'
+aws_sdk_cpp_req = '>= 1.11.156'
 
 openssl_dep = dependency('openssl', version: openssl_req)
 apr_dep = dependency('apr-1', version: apr_req)
 cos_c_sdk_dep = dependency('cos-c-sdk', version: cos_c_sdk_req)
+aws_sdk_cpp_dep = dependency('aws-cpp-sdk-s3', version: aws_sdk_cpp_req)
 
 easy_deps = [
   openssl_dep,
 ]
 
-add_project_arguments([
-  '-D_NO_EXCEPTION',
-  ], language: ['c', 'cpp'])
+#add_project_arguments([
+#  '-D_NO_EXCEPTION',
+#  ], language: ['c', 'cpp'])
 
 if cc.get_id() == 'clang'
   message('is clang')
@@ -165,11 +167,11 @@ endif
 #endif
 
 # Paths
-top_srcdir = include_directories('.')
-top_src_srcdir = include_directories('./src')
+top_sdir = include_directories('.')
+top_src_sdir = include_directories('./src')
 
-srcdir = meson.current_source_dir()
-builddir = meson.current_build_dir()
+cur_sdir = meson.current_source_dir()
+cur_bdir = meson.current_build_dir()
 
 subdir('deps/easy')
 subdir('deps/oblib')
