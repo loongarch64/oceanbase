@@ -10,7 +10,7 @@
 
 ## 编译
 
-使用 gcc 编译:
+默认使用 gcc 编译:
 
 ```sh
 meson setup _build
@@ -22,4 +22,13 @@ meson compile -C _build/
 ```sh
 CC=clang CXX=clang++ meson setup _build
 meson compile -C _build/
+```
+
+配置编译静态库或动态库：
+
+```sh
+cd _build
+meson configure -Ddefault_library=static #编译静态库
+meson configure -Ddefault_library=shared #编译动态库
+meson configure -Ddefault_library=both   #同时编译动态库和静态库
 ```
