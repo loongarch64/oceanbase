@@ -10,7 +10,16 @@
 
 ## 编译
 
+使用 gcc 编译:
+
 ```sh
 meson setup _build
+meson compile -C _build/
+```
+
+使用 clang 编译:
+
+```sh
+CC=clang CXX=clang++ meson setup _build
 meson compile -C _build/
 ```
