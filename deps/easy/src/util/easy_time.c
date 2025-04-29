@@ -159,7 +159,7 @@ static __inline__ uint64_t rdtsc()
     return rdtscp();
 }
 #elif defined(__loongarch_lp64)
-static __inline__ uint64_t rdtsc()
+static __inline__ uint64_t rdtscp()
 {
 	int rID;
 	uint64_t val;
@@ -170,7 +170,7 @@ static __inline__ uint64_t rdtsc()
 			);
 	return val;
 }
-static __inline__ uint64_t rdtscp()
+static __inline__ uint64_t rdtsc()
 {
     return rdtscp();
 }
