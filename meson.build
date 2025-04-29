@@ -61,21 +61,22 @@ endif
 if get_option('compile-dll-mode')
   add_project_arguments(
     [ '-DCOMPILE_DLL_MODE'],
-    language: 'c')
-  add_project_arguments(
-    [ '-DCOMPILE_DLL_MODE'],
-    language: 'cpp')
+    language: ['c', 'cpp']
+    )
 endif
 
 #if 'ENABLE_COMPILE_DLL_MODE'
 #  cmake_c_flags = '${CMAKE_C_FLAGS} -DCOMPILE_DLL_MODE'
 #  cmake_cxx_flags = '${CMAKE_CXX_FLAGS} -DCOMPILE_DLL_MODE'
 #endif
-#if 'OB_ERRSIM'
-#  cmake_c_flags = '${CMAKE_C_FLAGS} -DERRSIM'
-#  cmake_cxx_flags = '${CMAKE_CXX_FLAGS} -DERRSIM'
-#  ob_trans_errsim = 'ON'
-#endif
+
+if get_option('ob_errsim')
+  add_project_arguments(
+    ['-DERRSIM'],
+    language : ['c', 'cpp'],
+    )
+endif
+
 #if 'OB_DIS_SEARRAY'
 #  cmake_c_flags = '${CMAKE_C_FLAGS} -DDISABLE_SE_ARRAY'
 #  cmake_cxx_flags = '${CMAKE_CXX_FLAGS} -DDISABLE_SE_ARRAY'
