@@ -1,0 +1,10 @@
+prefix=/usr
+includedir=${prefix}/include
+libdir=${prefix}/lib
+
+Name: cos-c-sdk
+Description: Tencent Cos C SDK
+Version: 5.0.22
+Requires.private: libcurl apr-1
+Libs: -llibcos_c_sdk
+Cflags: -I${includedir}/cos_c_sdk

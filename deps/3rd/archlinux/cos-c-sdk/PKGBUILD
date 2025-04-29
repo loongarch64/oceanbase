@@ -1,0 +1,38 @@
+pkgname=cos-c-sdk-v5
+pkgver=5.0.22
+pkgrel=1
+pkgdesc="Tencent yun SDK for C"
+arch=("x86_64" "aarch64" "loong64")
+url="https://github.com/tencentyun/cos-c-sdk-v5"
+license=(Apache)
+depends=(abseil-cpp gcc-libs openssl)
+makedepends=(cmake)
+source=("$pkgname-$pkgver.tar.gz::https://github.com/tencentyun/$pkgname/archive/refs/tags/v$pkgver.tar.gz"
+	cos-c-sdk-build-error.patch
+	cmake-3.5.patch
+	cos-c-sdk.pc)
+#https://github.com/tencentyun/cos-c-sdk-v5/archive/refs/tags/v5.0.22.tar.gz
+b2sums=('5f706d98bc33c07d4f13febe14958bd280bbe4be2d5ca7e4003fde3816d05f0673a6d2ad80f02992bf4664fc51f1659c9cc6d9b2f707aaaf0c17a2aab43303bd'
+	'515dbf4630f709a520ec320777a0028b3d9ae5c75263682e92d42a91f4e108bb90c1d5b2c899ca5aab4b350a958efbc91802e05c31e667855625b6340fc8fcbb'
+	'032b4da445b9671acfb5f0265604e5a4c77842285e5fb10bf05f79d0bb2ae28c354eeb01bdf14c9b97b0a95e04df006084e6596e31884515fe55d2a7cfa4e086'
+	'57b6b57657028d736f36fb83046cc3f8cb0965910d9fe14861d3e41dceb387f4b15ce95faf8c1ff31dfaf081e9c448d49227852aea9441523f54cc6c0cf96dcf')
+
+prepare() {
+	cd "$srcdir/$pkgname-$pkgver"
+	patch -p1 -i "$srcdir/cos-c-sdk-build-error.patch"
+	patch -p1 -i "$srcdir/cmake-3.5.patch"
+}
+
+build() {
+	cmake -B build -S $pkgname-$pkgver \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=lib
+	#		-DCMAKE_CXX_STANDARD=17 # use the same C++ standard as abseil-cpp
+	make -C build
+}
+
+package() {
+	make -C build DESTDIR="$pkgdir/" install
+	mv $pkgdir/usr/lib/libcos_c_sdk_static.a $pkgdir/usr/lib/libcos_c_sdk.a
+	install -Dm644 $srcdir/cos-c-sdk.pc $pkgdir/usr/lib/pkgconfig/cos-c-sdk.pc
+}

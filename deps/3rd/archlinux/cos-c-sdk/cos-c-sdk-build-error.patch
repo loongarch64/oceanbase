@@ -1,0 +1,33 @@
+diff --git a/cos_c_sdk/cos_utility.h b/cos_c_sdk/cos_utility.h
+index 9ab275d..6a151d5 100644
+--- a/cos_c_sdk/cos_utility.h
++++ b/cos_c_sdk/cos_utility.h
+@@ -31,6 +31,7 @@ int is_should_retry(const cos_status_t *s, const char *str);
+ int is_default_domain(const char *str);
+ int is_should_retry_endpoint(const cos_status_t *s, const char *str);
+ int check_status_with_resp_body(cos_list_t *body, int64_t body_len, const char *target);
++int object_key_simplify_check(const char * object_path);
+ int is_default_endpoint(const char *str);
+ int change_host_suffix(char **endpoint);
+ void change_endpoint_suffix(cos_string_t *endpoint);
+diff --git a/cos_c_sdk_test/cos_demo.c b/cos_c_sdk_test/cos_demo.c
+index cdf802d..997cab2 100644
+--- a/cos_c_sdk_test/cos_demo.c
++++ b/cos_c_sdk_test/cos_demo.c
+@@ -1080,6 +1080,7 @@ void test_cos_download_part_to_file()
+     cos_string_t bucket;
+     cos_string_t object;
+     cos_string_t filepath;
++    //cos_upload_file_t filepath;
+     cos_table_t *resp_headers = NULL;
+     
+     cos_pool_create(&p, NULL);
+@@ -1089,7 +1090,7 @@ void test_cos_download_part_to_file()
+     cos_str_set(&object, TEST_MULTIPART_OBJECT4);
+     cos_str_set(&filepath, TEST_DOWNLOAD_NAME4);
+ 
+-    s = cos_download_part_to_file(options, &bucket, &object, &filepath, &resp_headers);
++    s = cos_download_part_to_file(options, &bucket, &object, (cos_upload_file_t*) &filepath, &resp_headers);
+     log_status(s);
+ 
+     cos_pool_destroy(p);
