@@ -1,1 +1,11 @@
-# easy_add_objects(['util', 'easy_array.c', 'easy_buf.c', 'easy_hash.c', 'easy_inet.c', 'easy_mod_stat.c', 'easy_pool.c', 'easy_string.c', 'easy_time.c', 'easy_util.c'])
+util_sources = [
+  'util/easy_array.c',
+  'util/easy_buf.c',
+  'util/easy_hash.c',
+  'util/easy_inet.c',
+  'util/easy_mod_stat.c',
+  'util/easy_pool.c',
+  'util/easy_string.c',
+  'util/easy_time.c',
+  'util/easy_util.c'
+]

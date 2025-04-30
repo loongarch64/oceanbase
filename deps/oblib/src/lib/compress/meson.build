@@ -51,7 +51,6 @@ subdir('zstd')
 subdir('zstd_1_3_8')
 subdir('lz4')
 subdir('snappy')
-#subdir('zlib_lite')
 
 ## target_link_libraries(compress
 ## PUBLIC lz4 snappy zstd zstd_1_3_8 zlib_lite)
@@ -62,7 +61,7 @@ if get_option('cpp-standard-20')
     compress_cargs += [ '-Wno-deprecated-non-prototype' ]
 endif
 
-lib_compress = static_library(
+lib_compress = library(
   'compress',
   sources : compress_sources,
   #include_directories : easy_include_dirs,
@@ -72,6 +71,7 @@ lib_compress = static_library(
   # soversion: soversion,
   # version: libversion,
   #c_args : compress_cargs,
-  #cpp_args : compress_cargs,
-  # install: true,
+  c_args : [ oblib_c_args ],
+  cpp_args : [ oblib_cpp_args, compress_cargs],
+  install: true,
 )

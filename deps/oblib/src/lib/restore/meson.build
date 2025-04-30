@@ -57,29 +57,29 @@ restore_sources = [
 #cos_wrapper_cargs = []
 #cos_wrapper_cppargs = []
 
-lib_s3 = static_library(
-  's3',
-  sources: 'ob_storage_s3_base.cpp',
-  #include_directories : easy_include_dirs,
-  include_directories : [
-    oblib_base_without_pass_dirs,
-    oblib_src_dirs,
-    top_src_sdir,
-    easy_include_dirs,
-    include_directories('/usr/include/oss_c_sdk'),
-    ],
-  dependencies : [
-    apr_dep,
-    aws_sdk_cpp_dep,
-    ],
-  #link_with : [ lib_lz4, lib_snappy, lib_zstd, lib_zstd_1_3_8 ],
-  # soversion: soversion,
-  # version: libversion,
-  #c_args : cos_wrapper_cargs,
-  c_args : ['-D_GLIBCXX_USE_CXX11_ABI=0', '-DNDEBUG', '-D_NO_EXCEPTION'],
-  cpp_args : ['-D_GLIBCXX_USE_CXX11_ABI=0', '-DNDEBUG', '-D_NO_EXCEPTION'],
-  # install: true,
-  )
+#lib_s3 = static_library(
+#  's3',
+#  sources: 'ob_storage_s3_base.cpp',
+#  #include_directories : easy_include_dirs,
+#  include_directories : [
+#    oblib_base_without_pass_dirs,
+#    oblib_src_dirs,
+#    top_src_sdir,
+#    easy_include_dirs,
+#    include_directories('/usr/include/oss_c_sdk'),
+#    ],
+#  dependencies : [
+#    apr_dep,
+#    aws_sdk_cpp_dep,
+#    ],
+#  #link_with : [ lib_lz4, lib_snappy, lib_zstd, lib_zstd_1_3_8 ],
+#  # soversion: soversion,
+#  # version: libversion,
+#  #c_args : cos_wrapper_cargs,
+#  c_args : [ oblib_c_args, '-D_GLIBCXX_USE_CXX11_ABI=0', '-DNDEBUG', '-D_NO_EXCEPTION'],
+#  cpp_args : [ oblib_cpp_args, '-D_GLIBCXX_USE_CXX11_ABI=0', '-DNDEBUG', '-D_NO_EXCEPTION'],
+#  # install: true,
+#  )
 
 # oblib_add_library(['obdal', 'ob_storage_obdal_base.cpp'])
 # target_link_directories(['obdal', 'PUBLIC', dep_3rd_dir, '/usr/local/oceanbase/deps/devel/lib'])

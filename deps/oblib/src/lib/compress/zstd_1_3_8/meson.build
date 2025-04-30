@@ -57,7 +57,7 @@ lib_zstd_1_3_8_cargs = [
   '-DZSTDERRORLIB_VISIBILITY=', '-DZDICTLIB_VISIBILITY=', '-DZSTDLIB_VISIBILITY=',
   '-fvisibility=hidden']
 
-lib_zstd_1_3_8 = static_library(
+lib_zstd_1_3_8 = library(
   'zstd_1_3_8',
   sources : zstd_1_3_8_sources,
   # soversion: soversion,

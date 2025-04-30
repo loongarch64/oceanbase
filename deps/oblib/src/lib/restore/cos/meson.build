@@ -7,8 +7,8 @@ cos_wrapper_sources = [
 cos_wrapper_cargs = []
 cos_wrapper_cppargs = []
 
-lib_cos_wrapper = static_library(
-  'cos_wrapper',
+lib_cos_sdk = library(
+  'cos_sdk',
   sources : cos_wrapper_sources,
   #include_directories : easy_include_dirs,
   include_directories : oblib_base_without_pass_dirs,
@@ -22,7 +22,29 @@ lib_cos_wrapper = static_library(
   # version: libversion,
   c_args : cos_wrapper_cargs,
   # install: true,
+  prelink: true,
+  install: true,
+  gnu_symbol_visibility: 'hidden',
   )
+
+objcopy_fake_lib_cos_sdk = ''
+if filter_obj
+  lib_target = lib_cos_sdk
+  if get_option('default_library') == 'both'
+    lib_target = lib_cos_sdk.get_static_lib()
+  endif
+  objcopy_fake_lib_cos_sdk = custom_target('libcos_sdk',
+    input: lib_target,
+    output: 'libcos_sdk.is-stripped',
+    capture: true,
+    command: [
+      objcopy,
+      '--localize-hidden',
+      '@INPUT@',
+    ],
+    build_by_default: true,
+  )
+endif
 
 #target_link_libraries(cos_wrapper PUBLIC oblib_base)
 #
@@ -53,20 +75,20 @@ lib_cos_wrapper = static_library(
 #oblib_add_extra_objects(${CMAKE_CURRENT_BINARY_DIR}/cos_sdk_objs.o)
 #oblib_add_library(cos_sdk cos_sdk_objs.o)
 
-lib_cos_sdk = static_library(
-  'cos_sdk',
-  sources : cos_wrapper_sources,
-  #include_directories : easy_include_dirs,
-  include_directories : oblib_base_without_pass_dirs,
-  dependencies : [
-    apr_dep,
-    cos_c_sdk_dep,
-    #mxml_dep,
-    ],
-  #link_with : [ lib_lz4, lib_snappy, lib_zstd, lib_zstd_1_3_8 ],
-  # soversion: soversion,
-  # version: libversion,
-  c_args : cos_wrapper_cargs,
-  # install: true,
-  )
-
+#lib_cos_sdk = static_library(
+#  'cos_sdk',
+#  sources : cos_wrapper_sources,
+#  #include_directories : easy_include_dirs,
+#  include_directories : oblib_base_without_pass_dirs,
+#  dependencies : [
+#    apr_dep,
+#    cos_c_sdk_dep,
+#    #mxml_dep,
+#    ],
+#  #link_with : [ lib_lz4, lib_snappy, lib_zstd, lib_zstd_1_3_8 ],
+#  # soversion: soversion,
+#  # version: libversion,
+#  c_args : cos_wrapper_cargs,
+#  # install: true,
+#  )
+#

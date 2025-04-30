@@ -91,34 +91,34 @@ lib_zlib_lite_qpl = static_library(
 #'BYPRODUCTS', 'zlib_lite_objs.o',
 #'COMMAND_EXPAND_LISTS'])
 
-#ld_bin = find_program('ld')
-#objcopy_bin = find_program('objcopy')
-#
-#zlib_lite_objs_tmp_o = custom_target(
-#  'zlib_lite_objs.tmp.o',
-#  output : 'zlib_lite_objs.tmp.o',
-#  depends : [lib_zlib_lite_src, lib_zlib_lite_adaptor],
-#  command : [ld_bin, #cc.get_linker_id(),
-#    '-r',
-#    lib_zlib_lite_src,
-#    lib_zlib_lite_adaptor,
-#    '-o',
-#    '@OUTPUT@'])
-#
-#zlib_lite_objs_o = custom_target(
-#  'zlib_lite_objs.o',
-#  input : zlib_lite_objs_tmp_o,
-#  output : 'zlib_lite_objs.o',
-#  command : [objcopy_bin,
-#    '--localize-hidden',
-#    '@INPUT@',
-#    '@OUTPUT@'])
-#
-#lib_zlib_lite = static_library(
-#  'zlib_lite',
-#  zlib_lite_objs_o,
-#  link_with: lib_zlib_lite_qpl,
-#)
+ld_bin = find_program('ld')
+objcopy_bin = find_program('objcopy')
+
+zlib_lite_objs_tmp_o = custom_target(
+  'zlib_lite_objs.tmp.o',
+  output : 'zlib_lite_objs.tmp.o',
+  depends : [lib_zlib_lite_src, lib_zlib_lite_adaptor],
+  command : [ld_bin, #cc.get_linker_id(),
+    '-r',
+    lib_zlib_lite_src,
+    lib_zlib_lite_adaptor,
+    '-o',
+    '@OUTPUT@'])
+
+zlib_lite_objs_o = custom_target(
+  'zlib_lite_objs.o',
+  input : zlib_lite_objs_tmp_o,
+  output : 'zlib_lite_objs.o',
+  command : [objcopy_bin,
+    '--localize-hidden',
+    '@INPUT@',
+    '@OUTPUT@'])
+
+lib_zlib_lite = static_library(
+  'zlib_lite',
+  zlib_lite_objs_o,
+  link_with: lib_zlib_lite_qpl,
+)
 ## oblib_add_extra_objects([cmake_current_binary_dir, '/zlib_lite_objs.o'])
 ## oblib_add_library(['zlib_lite', 'zlib_lite_objs.o'])
 ## target_link_libraries(['zlib_lite', 'zlib_lite_qpl'])

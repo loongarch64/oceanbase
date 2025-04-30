@@ -1,1 +1,15 @@
-# easy_add_objects(['io', 'easy_baseth_pool.c', 'easy_client.c', 'easy_connection.c', 'easy_file.c', 'easy_io.c', 'easy_log.c', 'easy_maccept.c', 'easy_message.c', 'easy_request.c', 'easy_socket.c', 'easy_ssl.c', 'easy_summary.c', 'easy_negotiation.c', 'ev.c'])
+io_sources = [
+  'io/easy_baseth_pool.c',
+  'io/easy_client.c',
+  'io/easy_connection.c',
+  'io/easy_file.c',
+  'io/easy_io.c',
+  'io/easy_log.c',
+  'io/easy_maccept.c',
+  'io/easy_message.c',
+  'io/easy_request.c',
+  'io/easy_socket.c',
+  'io/easy_ssl.c',
+  'io/easy_summary.c',
+  'io/easy_negotiation.c',
+  'io/ev.c']

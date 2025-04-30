@@ -46,8 +46,7 @@ zstd_sources = [
 'ob_zstd_wrapper.cpp',
 'ob_zstd_wrapper.h']
 
-
-lib_zstd = static_library(
+lib_zstd = library(
   'zstd',
   sources : zstd_sources,
   # soversion: soversion,

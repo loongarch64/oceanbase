@@ -1,14 +1,29 @@
 project('OceanBase_CE', ['c', 'cpp'],
   version: '4.3.5.2',
-  #'description', 'oceanbase distributed database system', 'homepage_url', 'https://open.oceanbase.com/', 'languages', 'cpp', 'c', 'asm',
-  default_options : ['default_library=static'])
-  message(['STATUS', 'open source build enabled'])
+  default_options : ['default_library=static', 'warning_level=3'],
+  meson_version: '>= 1.0.0',
+  )
+message(['STATUS', 'open source build enabled'])
 
 cc = meson.get_compiler('c')
 cpp = meson.get_compiler('cpp')
 
 prefix = get_option('prefix')
 buildtype = get_option('buildtype')
+
+filter_obj = false
+objcopy = find_program('objcopy', native: true)
+if cc.get_id() == 'clang'
+  message('allow_obj_filter doesn\'t work with clang due to it not supporting pre-linking')
+endif
+if get_option('default_library') != 'shared' and not get_option('b_lto')
+  if objcopy.found()
+    message('Using objcopy to localize symbols in static library')
+    filter_obj = true
+  else
+    error('objcopy not found, unable to localize symbols in static library')
+  endif
+endif
 
 # Dependencies
 openssl_req = '>= 1.1.1'
@@ -17,14 +32,12 @@ cos_c_sdk_req = '>= 5.0.21'
 mxml_req = '>= 2.12.0'
 aws_sdk_cpp_req = '>= 1.11.156'
 
+libm = cc.find_library('m', required : true)
+libpthread = cc.find_library('pthread', required : true)
 openssl_dep = dependency('openssl', version: openssl_req)
 apr_dep = dependency('apr-1', version: apr_req)
 cos_c_sdk_dep = dependency('cos-c-sdk', version: cos_c_sdk_req)
 aws_sdk_cpp_dep = dependency('aws-cpp-sdk-s3', version: aws_sdk_cpp_req)
-
-easy_deps = [
-  openssl_dep,
-]
 
 #add_project_arguments([
 #  '-D_NO_EXCEPTION',
@@ -49,16 +62,6 @@ endif
 #    '-std=gnu++11',
 #    ], language: 'cpp')
 #endif
-
-libm_dep = cc.find_library('m', required: false)
-if libm_dep.found()
-  easy_deps += [libm_dep]
-endif
-
-libpthread_dep = cc.find_library('pthread', required: false)
-if libpthread_dep.found()
-  easy_deps += [libpthread_dep]
-endif
 
 if get_option('compile-dll-mode')
   add_project_arguments(

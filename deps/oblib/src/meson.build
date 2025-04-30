@@ -6,7 +6,7 @@
 #
 #oblib_pass_lib = library('oblib_pass',
 #'INTERFACE')
-#
+
 #if 'NOT', 'CPP_STANDARD_20'
 #  # target_compile_options(['oblib_base_without_pass', 'INTERFACE', '-D_GLIBCXX_USE_CXX11_ABI=0'])
 #endif
@@ -87,19 +87,133 @@ oblib_base_without_pass_dirs = [
 #if 'OB_USE_BABASSL'
 #  # target_include_directories(['oblib_base_without_pass', 'INTERFACE', dep_3rd_dir, '/usr/local/babassl-ob/include'])
 #endif
-#if 'OB_USE_CLANG'
+
+if cc.get_id() == 'clang'
 #  # The following clang warnings should be fixed later: -Wno-unused-variable -Wno-invalid-offsetof
-#  oblib_compile_definitions = ['-fno-strict-aliasing', '-fno-omit-frame-pointer', march_cflags, mtune_cflags, '-D__STDC_LIMIT_MACROS', '-D__STDC_CONSTANT_MACROS', '-D_NO_EXCEPTION', '-DOCI_LINK_RUNTIME', '-Wall', '-Wextra', '-Wformat', '-Werror', '-Wno-deprecated', '-Wno-address-of-packed-member', '-Wno-sign-compare', '-Wno-tautological-compare', '-Wno-psabi', '-Wno-c99-designator', '-Wno-int-in-bool-context', '-Wno-sizeof-array-div', '-Wno-implicit-const-int-float-conversion', '-Wno-fortify-source', '-Wno-non-c-typedef-for-linkage', '-Wno-uninitialized-const-reference', '-Wno-unused-function', '-Wno-atomic-alignment', '-Wno-tautological-constant-out-of-range-compare', '-Wno-unused-parameter', '-Wno-string-plus-int', '-Wno-misleading-indentation', '-Wno-unused-private-field', '$<$<COMPILE_LANGUAGE:CXX>:-Wno-overloaded-virtual', '-Wno-reserved-user-defined-literal', '-Wno-self-assign', '-Wno-inconsistent-missing-override', '-Wno-mismatched-tags', '-Wno-unused-variable', '-Wno-invalid-offsetof', '-Wno-unevaluated-expression', '-Wno-constant-logical-operand>', '$<$<COMPILE_LANGUAGE:C>:-Wno-unused-parameter>']
-#  if 'CPP_STANDARD_20'
-#    oblib_compile_definitions = [oblib_compile_definitions, '-Wno-unused-but-set-variable', '-Wno-null-pointer-subtraction', '-Wno-compound-token-split-by-macro', '-Wno-packed-non-pod', '-Wno-format', '-Wno-shorten-64-to-32', '-Wno-unused-but-set-parameter', '-Wno-single-bit-bitfield-constant-conversion', '-Wno-enum-constexpr-conversion', '-Wno-covered-switch-default', '-Wno-bitwise-instead-of-logical', '-Wno-suggest-override', '-Wno-non-virtual-dtor', '-Wno-cast-qual', '-Wno-unused-value', '-Wno-macro-redefined', '-Wno-reinterpret-base-class', '-Wno-register', '-Wno-implicit-fallthrough', '-Wno-deprecated-non-prototype', '-Wno-ambiguous-reversed-operator', '-Wno-invalid-partial-specialization', '-Wno-string-concatenation']
-#  endif
-#  # target_compile_options(['oblib_base_without_pass', 'INTERFACE', oblib_compile_definitions])
+  oblib_c_args = [
+    '-fno-strict-aliasing',
+    '-fno-omit-frame-pointer',
+    #march_cflags,
+    #mtune_cflags,
+    '-D__STDC_LIMIT_MACROS',
+    '-D__STDC_CONSTANT_MACROS',
+    '-D_NO_EXCEPTION',
+    '-DOCI_LINK_RUNTIME',
+    #'-Wall',
+    '-Wextra',
+    '-Wformat',
+    #'-Werror',
+    '-Wno-deprecated',
+    '-Wno-address-of-packed-member',
+    '-Wno-sign-compare',
+    '-Wno-tautological-compare',
+    '-Wno-psabi',
+    '-Wno-c99-designator',
+    '-Wno-int-in-bool-context',
+    '-Wno-sizeof-array-div',
+    '-Wno-implicit-const-int-float-conversion',
+    '-Wno-fortify-source',
+    '-Wno-non-c-typedef-for-linkage',
+    '-Wno-uninitialized-const-reference',
+    '-Wno-unused-function',
+    '-Wno-atomic-alignment',
+    '-Wno-tautological-constant-out-of-range-compare',
+    '-Wno-unused-parameter',
+    '-Wno-string-plus-int',
+    '-Wno-misleading-indentation',
+    '-Wno-unused-private-field',
+    '-Wno-reserved-user-defined-literal',
+    '-Wno-self-assign',
+    '-Wno-inconsistent-missing-override',
+    '-Wno-mismatched-tags',
+    '-Wno-unused-variable',
+    '-Wno-invalid-offsetof',
+    '-Wno-unevaluated-expression',
+    '-Wno-constant-logical-operand>',
+    '-Wno-unused-parameter>',
+   ]
+  oblib_cpp_args = [ oblib_c_args,
+  '-Wno-overloaded-virtual'
+  ]
+  if get_option('cpp-standard-20')
+    oblib_c_args += [
+    '-Wno-unused-but-set-variable',
+    '-Wno-null-pointer-subtraction',
+    '-Wno-compound-token-split-by-macro',
+    '-Wno-packed-non-pod',
+    '-Wno-format',
+    '-Wno-shorten-64-to-32',
+    '-Wno-unused-but-set-parameter',
+    '-Wno-single-bit-bitfield-constant-conversion',
+    '-Wno-enum-constexpr-conversion',
+    '-Wno-covered-switch-default',
+    '-Wno-bitwise-instead-of-logical',
+    '-Wno-suggest-override',
+    '-Wno-non-virtual-dtor',
+    '-Wno-cast-qual',
+    '-Wno-unused-value',
+    '-Wno-macro-redefined',
+    '-Wno-reinterpret-base-class',
+    '-Wno-register',
+    '-Wno-implicit-fallthrough',
+    '-Wno-deprecated-non-prototype',
+    '-Wno-ambiguous-reversed-operator',
+    '-Wno-invalid-partial-specialization',
+    '-Wno-string-concatenation']
+  endif
 #  if 'ENABLE_SANITY'
 #    # target_compile_options(['oblib_pass', 'INTERFACE', '$<$<COMPILE_LANGUAGE:CXX>:SHELL:-Xclang -load -Xclang ${DEVTOOLS_DIR}/lib64/libsanitypass.so>', '-fno-builtin-memset', '-fno-builtin-bzero', '-fno-builtin-memcpy', '-fno-builtin-memmove', '-fno-builtin-memcmp', '-fno-builtin-strlen', '-fno-builtin-strnlen', '-fno-builtin-strcpy', '-fno-builtin-strncpy', '-fno-builtin-strcmp', '-fno-builtin-strncmp', '-fno-builtin-strcasecmp', '-fno-builtin-strncasecmp', '-fno-builtin-vsprintf', '-fno-builtin-vsnprintf', '-fno-builtin-sprintf', '-fno-builtin-snprintf'])
 #  endif
-#else
-#  # target_compile_options(['oblib_base_without_pass', 'INTERFACE', '-fno-strict-aliasing', '-fno-omit-frame-pointer', march_cflags, mtune_cflags, '-D__STDC_LIMIT_MACROS', '-D__STDC_CONSTANT_MACROS', '-D_NO_EXCEPTION', '-DOCI_LINK_RUNTIME', '-Wall', '-Wextra', '-Wformat', '-Werror', '-Wno-deprecated', '-Wno-sign-compare', '-Wno-psabi', '-Wno-attributes', '-Wno-nonnull-compare', '-Wno-parentheses', '-Wno-implicit-fallthrough', '-Wno-switch', '-Wno-address-of-packed-member', '-Wno-ignored-qualifiers', '-Wno-format', '-Wno-type-limits', '-Wno-format-truncation', '-Wno-int-in-bool-context', '-Wno-cast-function-type', '-Wno-unused-function', '-Wno-overflow', '-Wno-unused-but-set-variable', '-Wno-memset-elt-size', '$<$<COMPILE_LANGUAGE:CXX>:', '-Wno-literal-suffix', '-Wno-invalid-offsetof', '-Wno-unused-variable', '-Wno-deprecated-copy', '-Wno-class-memaccess', '-Wno-unused-parameter', '-Wno-unused-but-set-variable', '-Wno-pragmas', '-Wno-maybe-uninitialized', '-Wno-subobject-linkage>', '$<$<COMPILE_LANGUAGE:C>:', '-Wno-unused-parameter>'])
-#endif
+else
+  oblib_c_args = [
+'-fno-strict-aliasing',
+'-fno-omit-frame-pointer',
+#march_cflags,
+#mtune_cflags,
+'-D__STDC_LIMIT_MACROS',
+'-D__STDC_CONSTANT_MACROS',
+'-D_NO_EXCEPTION',
+'-DOCI_LINK_RUNTIME',
+#'-Wall',
+'-Wextra',
+'-Wformat',
+#'-Werror',
+'-Wno-deprecated',
+'-Wno-sign-compare',
+'-Wno-psabi',
+'-Wno-attributes',
+'-Wno-nonnull-compare',
+'-Wno-parentheses',
+'-Wno-implicit-fallthrough',
+'-Wno-switch',
+'-Wno-address-of-packed-member',
+'-Wno-ignored-qualifiers',
+'-Wno-format',
+'-Wno-type-limits',
+'-Wno-format-truncation',
+'-Wno-int-in-bool-context',
+'-Wno-cast-function-type',
+'-Wno-unused-function',
+'-Wno-overflow',
+'-Wno-unused-but-set-variable',
+'-Wno-memset-elt-size',
+#'$<$<COMPILE_LANGUAGE:CXX>:',
+'-Wno-literal-suffix',
+'-Wno-invalid-offsetof',
+'-Wno-unused-variable',
+'-Wno-deprecated-copy',
+'-Wno-class-memaccess',
+'-Wno-unused-parameter',
+'-Wno-unused-but-set-variable',
+'-Wno-pragmas',
+'-Wno-maybe-uninitialized',
+'-Wno-subobject-linkage>',
+#'$<$<COMPILE_LANGUAGE:C>:',
+'-Wno-unused-parameter>'
+]
+  oblib_cpp_args = []
+endif
+
 ## target_compile_features(['oblib_base', 'INTERFACE', 'cxx_std_11'])
 #oblib_abseil_list = [dep_dir, '/lib64/libabsl_base.a', dep_dir, '/lib64/libabsl_city.a', dep_dir, '/lib64/libabsl_debugging_internal.a', dep_dir, '/lib64/libabsl_demangle_internal.a', dep_dir, '/lib64/libabsl_hash.a', dep_dir, '/lib64/libabsl_int128.a', dep_dir, '/lib64/libabsl_low_level_hash.a', dep_dir, '/lib64/libabsl_malloc_internal.a', dep_dir, '/lib64/libabsl_raw_hash_set.a', dep_dir, '/lib64/libabsl_raw_logging_internal.a', dep_dir, '/lib64/libabsl_spinlock_wait.a', dep_dir, '/lib64/libabsl_stacktrace.a', dep_dir, '/lib64/libabsl_str_format_internal.a', dep_dir, '/lib64/libabsl_strings.a', dep_dir, '/lib64/libabsl_strings_internal.a', dep_dir, '/lib64/libabsl_symbolize.a', dep_dir, '/lib64/libabsl_synchronization.a', dep_dir, '/lib64/libabsl_throw_delegate.a', dep_dir, '/lib64/libabsl_time.a', dep_dir, '/lib64/libabsl_time_zone.a']
 #if 'OB_BUILD_OPENSOURCE'

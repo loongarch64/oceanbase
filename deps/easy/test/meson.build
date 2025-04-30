@@ -48,17 +48,16 @@ foreach src : test_sources
   name = src_array[0].replace('/', '_')
   test(name,
     executable(name,
-      src,
-      c_args : cargs,
+      sources: [src],
+      c_args : [ '-save-temps', easy_base_c_args, '-mno-direct-extern-access'],
       include_directories : [
 	include_directories('.'),
 	include_directories('..'),
 	easy_include_dirs,
-	easy_test_dirs,
 	],
-      dependencies : easy_deps,
+      #dependencies : libeasy_dep,
       link_with : [ libeasy ],
-      install : false,
+      #install : false,
     )
   )
 endforeach

@@ -1,5 +1,5 @@
 subdir('compress')
-#subdir('restore')
+subdir('restore')
 
 #  ob_set_subtarget(oblib_lib_extra ALONE
 #    timezone/ob_timezone_util.cpp
