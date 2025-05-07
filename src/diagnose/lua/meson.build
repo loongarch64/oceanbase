@@ -1,3 +1,17 @@
-# ob_set_subtarget(['ob_diagnose_lua', 'common', 'ob_lua_api.cpp', 'ob_lua_handler.cpp'])
-# ob_server_add_target('ob_diagnose_lua')
-# target_link_libraries(['ob_diagnose_lua', 'INTERFACE', dep_dir, '/lib/liblua.a'])
+lua_sources = {
+  'ob_lua_api.cpp',
+  'ob_lua_handler.cpp'
+}
+
+lib_ob_diagnose_lua = library(
+  'ob_diagnose_lua',
+  sources : lua_sources,
+  dependencies : [
+    lua_dep,
+    ],
+  link_with : [lib_ob_base],
+  compile_args: ['-DCCLS_LASY_OFF=1'],
+  if get_option('OB_BUILD_CCLS')
+    compile_args: ['-DCCLS_LASY_OFF=1'],
+  endif
+)

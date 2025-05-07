@@ -31,6 +31,7 @@ apr_req = '>= 1.6.5'
 cos_c_sdk_req = '>= 5.0.21'
 mxml_req = '>= 2.12.0'
 aws_sdk_cpp_req = '>= 1.11.156'
+lua_req = '>= 5.4.3'
 
 libm = cc.find_library('m', required : true)
 libpthread = cc.find_library('pthread', required : true)
@@ -38,6 +39,7 @@ openssl_dep = dependency('openssl', version: openssl_req)
 apr_dep = dependency('apr-1', version: apr_req)
 cos_c_sdk_dep = dependency('cos-c-sdk', version: cos_c_sdk_req)
 aws_sdk_cpp_dep = dependency('aws-cpp-sdk-s3', version: aws_sdk_cpp_req)
+lua_dep = dependency('lua', version: lua_req)
 
 #add_project_arguments([
 #  '-D_NO_EXCEPTION',
