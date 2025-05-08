@@ -25,6 +25,7 @@ if get_option('default_library') != 'shared' and not get_option('b_lto')
   endif
 endif
 
+llvm_modules : ['Support', 'Core','IRReader', 'ExecutionEngine', 'OrcJit', 'McJit', 'runtimedyld', 'bitreader', 'bitwriter', 'object', 'objectyaml', 'target', 'DebugInfoDWARF', 'Symbolize']
 # Dependencies
 openssl_req = '>= 1.1.1'
 apr_req = '>= 1.6.5'
@@ -35,11 +36,14 @@ lua_req = '>= 5.4.3'
 
 libm = cc.find_library('m', required : true)
 libpthread = cc.find_library('pthread', required : true)
+libdl = cc.find_library('dl', required : true)
+librt = cc.find_library('rt', required : true)
 openssl_dep = dependency('openssl', version: openssl_req)
 apr_dep = dependency('apr-1', version: apr_req)
 cos_c_sdk_dep = dependency('cos-c-sdk', version: cos_c_sdk_req)
 aws_sdk_cpp_dep = dependency('aws-cpp-sdk-s3', version: aws_sdk_cpp_req)
 lua_dep = dependency('lua', version: lua_req)
+llvm_dep = dependency('llvm', version : '>=17', modules : llvm_modules)
 
 #add_project_arguments([
 #  '-D_NO_EXCEPTION',
@@ -52,6 +56,14 @@ if cc.get_id() == 'clang'
     ], language: 'cpp')
 else
   message('is not clang')
+endif
+
+if host_machine.cpu_family() == 'x86_64'
+  llvm_modules += ['X86CodeGen', 'X86AsmParser']
+elif  host_machine.cpu_family() == 'aarch64'
+  llvm_modules += ['AArch64CodeGen', 'AArch64AsmParser']
+elif  host_machine.cpu_family() == 'ppc64le'
+  llvm_modules += ['PowerPCCodeGen', 'PowerPCAsmParser']
 endif
 
 #if get_option('cpp-standard-20')
