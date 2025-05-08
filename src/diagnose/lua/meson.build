@@ -10,7 +10,6 @@ lib_ob_diagnose_lua = library(
     lua_dep,
     ],
   link_with : [lib_ob_base],
-  compile_args: ['-DCCLS_LASY_OFF=1'],
   if get_option('OB_BUILD_CCLS')
     compile_args: ['-DCCLS_LASY_OFF=1'],
   endif
