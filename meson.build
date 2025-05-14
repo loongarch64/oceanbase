@@ -6,11 +6,11 @@ project('OceanBase_CE', ['c', 'cpp'],
 message(['STATUS', 'open source build enabled'])
 
 cc = meson.get_compiler('c')
+source_root = meson.source_root()
 cpp = meson.get_compiler('cpp')
 
 prefix = get_option('prefix')
 buildtype = get_option('buildtype')
-
 filter_obj = false
 objcopy = find_program('objcopy', native: true)
 if cc.get_id() == 'clang'

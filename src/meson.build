@@ -12,7 +12,7 @@ ob_base_lib = library('ob_base', 'INTERFACE')
 # ob_add_object_target(target)
 # target_link_libraries([target, 'PUBLIC', 'ob_base'])
 # list(['APPEND', 'ob_objects', target])
-ob_objects = ['${ob_objects}', 'CACHE', 'INTERNAL', 'observer object library list']
+ob_objects = [lib_ob_server, lib_ob_rootserver, lib_ob_sql_simd, lib_ob_storage_simd, lib_ob_diagnose_lua, lib_ob_logservice, lib_ob_pl]
 # endfunction()
 subdir('share')
 subdir('sql')
