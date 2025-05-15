@@ -96,6 +96,7 @@ if get_option('ob_errsim')
     )
 endif
 
+grpcinc = include_directories('deps/oblib/src/grpc')
 #if 'OB_DIS_SEARRAY'
 #  cmake_c_flags = '${CMAKE_C_FLAGS} -DDISABLE_SE_ARRAY'
 #  cmake_cxx_flags = '${CMAKE_CXX_FLAGS} -DDISABLE_SE_ARRAY'

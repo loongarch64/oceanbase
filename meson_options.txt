@@ -81,3 +81,11 @@ option('use-babassl',
 option('cpp-standard-20',
   type: 'boolean', value: false,
   description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('OB_ERRSIM',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
+
+option('OB_BUILD_STANDALONE',
+  type: 'boolean', value: false,
+  description: 'verbose logging, for embedded/size-sensitive custom builds')
